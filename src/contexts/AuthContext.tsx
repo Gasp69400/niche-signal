@@ -173,29 +173,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resetPassword = useCallback(
     async (email: string, locale: string) => {
-      try {
-        const res = await fetch("/api/auth/forgot-password", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, locale }),
-        });
-
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          return {
-            error:
-              typeof data.error === "string"
-                ? data.error
-                : "Impossible d'envoyer l'email de réinitialisation",
-          };
-        }
-
-        return { error: null };
-      } catch {
-        return { error: "Impossible d'envoyer l'email de réinitialisation" };
+      if (!supabase) {
+        return { error: "Supabase non configuré" };
       }
+
+      const redirectTo = `${getSiteUrl()}/auth/callback?next=/${locale}/auth/reset-password`;
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo,
+      });
+
+      if (error) {
+        console.error("[forgot-password]", error.message, { redirectTo });
+        return { error: error.message };
+      }
+
+      return { error: null };
     },
-    []
+    [supabase]
   );
 
   const updatePassword = useCallback(

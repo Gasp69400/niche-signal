@@ -17,6 +17,7 @@ export async function GET(request: Request) {
 
   const { error } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
+    console.error("[auth/callback]", error.message);
     const fallback = next.includes("reset-password") ? next : "/fr";
     return NextResponse.redirect(`${origin}${fallback}?error=auth`);
   }

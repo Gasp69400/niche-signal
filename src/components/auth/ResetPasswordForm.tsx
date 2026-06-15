@@ -2,55 +2,89 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
+
+type ResetStatus = "loading" | "ready" | "invalid";
+
+async function resolveRecoverySession(): Promise<boolean> {
+  const { createClient } = await import("@/lib/supabase/client");
+  const supabase = createClient();
+  if (!supabase) return false;
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+
+  const code = searchParams.get("code") ?? hashParams.get("code");
+  const accessToken = hashParams.get("access_token");
+  const type = searchParams.get("type") ?? hashParams.get("type");
+
+  if (code) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) {
+      console.error("[reset-password] code exchange failed:", error.message);
+      return false;
+    }
+    window.history.replaceState({}, "", window.location.pathname);
+    return true;
+  }
+
+  if (accessToken && type === "recovery") {
+    const refreshToken = hashParams.get("refresh_token");
+    if (!refreshToken) return false;
+
+    const { error } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
+    if (error) {
+      console.error("[reset-password] hash session failed:", error.message);
+      return false;
+    }
+    window.history.replaceState({}, "", window.location.pathname);
+    return true;
+  }
+
+  const { data: { session } } = await supabase.auth.getSession();
+  return Boolean(session);
+}
 
 export function ResetPasswordForm() {
   const { updatePassword } = useAuth();
   const { openAuth } = useAuthModal();
   const { locale, t } = useI18n();
+  const searchParams = useSearchParams();
   const a = t.auth;
 
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [status, setStatus] = useState<ResetStatus>("loading");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
 
-    async function initSession() {
-      const { createClient } = await import("@/lib/supabase/client");
-      const supabase = createClient();
-      if (!supabase) {
-        if (!cancelled) setReady(false);
+    async function init() {
+      if (searchParams.get("error") === "auth") {
+        if (!cancelled) setStatus("invalid");
         return;
       }
 
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-
-      if (code) {
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (!error) {
-          window.history.replaceState({}, "", window.location.pathname);
-        }
-      }
-
-      const { data: { session } } = await supabase.auth.getSession();
+      const hasSession = await resolveRecoverySession();
       if (!cancelled) {
-        setReady(Boolean(session));
+        setStatus(hasSession ? "ready" : "invalid");
       }
     }
 
-    void initSession();
+    void init();
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,7 +107,15 @@ export function ResetPasswordForm() {
     setSuccess(true);
   }
 
-  if (!ready) {
+  if (status === "loading") {
+    return (
+      <div className="glass-card mx-auto w-full max-w-md rounded-2xl p-6 text-center shadow-glow-lg sm:p-8">
+        <p className="text-sm text-muted">{a.loading}</p>
+      </div>
+    );
+  }
+
+  if (status === "invalid") {
     return (
       <div className="glass-card mx-auto w-full max-w-md rounded-2xl p-6 text-center shadow-glow-lg sm:p-8">
         <p className="text-sm text-red-400">{a.resetInvalidLink}</p>
