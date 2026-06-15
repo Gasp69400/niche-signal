@@ -13,6 +13,7 @@ interface ReportRow {
   competition: string | null;
   created_at: string;
   user_id: string | null;
+  is_favorite: boolean | null;
 }
 
 function mapRowToSummary(row: ReportRow): ReportSummary {
@@ -25,6 +26,7 @@ function mapRowToSummary(row: ReportRow): ReportSummary {
     marketSize: stored?.marketSize ?? row.market_size ?? "—",
     competition: stored?.competition ?? row.competition ?? "—",
     createdAt: row.created_at,
+    isFavorite: row.is_favorite ?? false,
   };
 }
 
@@ -35,6 +37,7 @@ function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt
       id: row.id,
       domain: row.domain,
       createdAt: row.created_at,
+      isFavorite: row.is_favorite ?? false,
     };
   }
 
@@ -62,6 +65,7 @@ function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt
     positioning: { oneLiner: "—", differentiators: [] },
     similarNiches: [],
     createdAt: row.created_at,
+    isFavorite: row.is_favorite ?? false,
   };
 }
 
@@ -74,7 +78,7 @@ export async function getCachedReport(
 
   const { data: match, error } = await supabase
     .from("reports")
-    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id, is_favorite")
     .ilike("domain", trimmedDomain)
     .gte("created_at", cutoff)
     .not("data", "is", null)
@@ -129,16 +133,22 @@ export async function saveReport(
 
 export async function getReportsByUser(
   userId: string,
-  search?: string
+  options?: { search?: string; favoritesOnly?: boolean }
 ): Promise<ReportSummary[]> {
   const supabase = createAdminClient();
+  const search = options?.search;
+  const favoritesOnly = options?.favoritesOnly;
 
   let query = supabase
     .from("reports")
-    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id, is_favorite")
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(100);
+
+  if (favoritesOnly) {
+    query = query.eq("is_favorite", true);
+  }
 
   if (search?.trim()) {
     query = query.ilike("domain", `%${search.trim()}%`);
@@ -153,6 +163,28 @@ export async function getReportsByUser(
   return (data as ReportRow[]).map(mapRowToSummary);
 }
 
+export async function setReportFavorite(
+  reportId: string,
+  userId: string,
+  isFavorite: boolean
+): Promise<boolean> {
+  const supabase = createAdminClient();
+
+  const { data, error } = await supabase
+    .from("reports")
+    .update({ is_favorite: isFavorite })
+    .eq("id", reportId)
+    .eq("user_id", userId)
+    .select("is_favorite")
+    .single();
+
+  if (error || !data) {
+    throw new Error(error?.message ?? "Failed to update favorite");
+  }
+
+  return Boolean(data.is_favorite);
+}
+
 export async function getReportById(
   id: string,
   userId?: string
@@ -161,7 +193,7 @@ export async function getReportById(
 
   const { data: report, error: reportError } = await supabase
     .from("reports")
-    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id, is_favorite")
     .eq("id", id)
     .single();
 

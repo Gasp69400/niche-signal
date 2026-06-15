@@ -55,6 +55,7 @@ export interface AnalyzeReport {
   verdict: string;
   createdAt?: string;
   cached?: boolean;
+  isFavorite?: boolean;
   marketTrend: {
     data: MarketTrendPoint[];
     sixMonthChange: number;

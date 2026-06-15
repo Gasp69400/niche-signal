@@ -11,6 +11,7 @@ CREATE TABLE reports (
   domain TEXT NOT NULL,
   data JSONB NOT NULL,
   user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  is_favorite BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -19,6 +20,7 @@ CREATE INDEX idx_reports_created_at ON reports(created_at DESC);
 CREATE INDEX idx_reports_domain_created ON reports(domain, created_at DESC);
 CREATE INDEX idx_reports_data ON reports USING gin (data);
 CREATE INDEX idx_reports_user_id ON reports(user_id, created_at DESC);
+CREATE INDEX idx_reports_user_favorites ON reports(user_id, is_favorite, created_at DESC) WHERE is_favorite = true;
 
 ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
 

@@ -7,12 +7,14 @@ import { PositioningAngle } from "@/components/report/PositioningAngle";
 import { ReportActionBar } from "@/components/report/ReportActionBar";
 import { ReportSection } from "@/components/report/ReportSection";
 import { SimilarNiches } from "@/components/report/SimilarNiches";
+import { FavoriteButton } from "@/components/report/FavoriteButton";
 import { TargetPersona } from "@/components/report/TargetPersona";
 import type { AnalyzeReport } from "@/types/market-report";
 
 interface ReportCardProps {
   report: AnalyzeReport;
   onAnalyzeNiche?: (niche: string) => void;
+  onFavoriteChange?: (isFavorite: boolean) => void;
 }
 
 function MetricCard({
@@ -75,7 +77,7 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export function ReportCard({ report, onAnalyzeNiche }: ReportCardProps) {
+export function ReportCard({ report, onAnalyzeNiche, onFavoriteChange }: ReportCardProps) {
   const { profile } = useAuth();
   const isPro = profile?.plan === "pro";
   const isPositiveVerdict = report.opportunityScore >= 70;
@@ -84,12 +86,21 @@ export function ReportCard({ report, onAnalyzeNiche }: ReportCardProps) {
     <>
       <div id="report-print-area" className="w-full pb-24">
         <div className="glass-card mb-6 rounded-2xl p-6 shadow-glow">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-accent-blue">
-            Rapport d&apos;analyse
-          </p>
-          <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
-            {report.domain}
-          </h2>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-accent-blue">
+                Rapport d&apos;analyse
+              </p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
+                {report.domain}
+              </h2>
+            </div>
+            <FavoriteButton
+              reportId={report.id}
+              isFavorite={report.isFavorite}
+              onToggle={onFavoriteChange}
+            />
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

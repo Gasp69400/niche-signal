@@ -5,4 +5,5 @@ export interface ReportSummary {
   marketSize: string;
   competition: string;
   createdAt: string;
+  isFavorite: boolean;
 }

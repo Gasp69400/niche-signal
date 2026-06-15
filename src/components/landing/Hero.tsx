@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
-import { ReportCard } from "@/components/ReportCard";
+import { AnalysisReadyBanner } from "@/components/landing/AnalysisReadyBanner";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
 import { ReportDemoMockup } from "@/components/landing/mockups/ReportDemoMockup";
 import { FadeIn } from "@/components/landing/FadeIn";
@@ -151,12 +151,17 @@ export function Hero() {
 
         {(isLoading || report) && (
           <div className="mt-12 text-left">
-            <div id="report-result" className="mx-auto max-w-4xl">
+            <div id="report-result" className="mx-auto max-w-2xl">
               {isLoading ? (
                 <ReportSkeleton />
               ) : report ? (
                 <FadeIn>
-                  <ReportCard report={report} onAnalyzeNiche={runAnalysis} />
+                  <AnalysisReadyBanner
+                    report={report}
+                    onFavoriteChange={(isFavorite) =>
+                      setReport((prev) => (prev ? { ...prev, isFavorite } : prev))
+                    }
+                  />
                 </FadeIn>
               ) : null}
             </div>

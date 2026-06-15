@@ -16,12 +16,21 @@ export interface Dictionary {
     searchPlaceholder: string;
     newAnalysis: string;
     empty: string;
+    emptyFavorites: string;
     noResults: string;
     selectReport: string;
     selectHint: string;
     score: string;
     loadError: string;
     reportError: string;
+    tabAll: string;
+    tabFavorites: string;
+    backToList: string;
+    openReport: string;
+  };
+  favorites: {
+    add: string;
+    remove: string;
   };
   hero: {
     badge: string;
@@ -36,6 +45,9 @@ export interface Dictionary {
     analyzing: string;
     loginRequired: string;
     proRequired: string;
+    reportReady: string;
+    reportReadyHint: string;
+    viewFullReport: string;
   };
   marquee: string[];
   testimonials: Array<{

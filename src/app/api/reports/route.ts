@@ -10,7 +10,10 @@ export async function GET(request: NextRequest) {
   }
 
   const search = request.nextUrl.searchParams.get("search") ?? undefined;
-  const reports = await getReportsByUser(user.id, search);
+  const favoritesOnly =
+    request.nextUrl.searchParams.get("favorites") === "true";
+
+  const reports = await getReportsByUser(user.id, { search, favoritesOnly });
 
   return NextResponse.json(reports);
 }
