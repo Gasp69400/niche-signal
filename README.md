@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NicheSignal
 
-## Getting Started
+Outil d'intelligence marché pour identifier des niches SaaS sous-exploitées.
 
-First, run the development server:
+> **Projet indépendant de Slidy** — repo GitHub, Supabase et déploiement séparés.
+
+## Stack
+
+- Next.js 14 (App Router)
+- TypeScript + Tailwind CSS
+- Supabase (auth + PostgreSQL)
+- i18n EN / FR
+
+## Démarrage local
 
 ```bash
+npm install
+cp .env.local.example .env.local   # clés du projet Supabase "niche-signal" uniquement
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+→ [http://localhost:3002/en](http://localhost:3002/en) (port **3002**, Slidy utilise 3000/3001)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Isolation Slidy / NicheSignal
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Ressource | NicheSignal | Slidy |
+|-----------|-------------|-------|
+| Repo GitHub | `niche-signal` | repo Slidy |
+| Supabase | projet `niche-signal` | projet Slidy |
+| Port dev | 3002 | 3000 / 3001 |
 
-## Learn More
+## Supabase + GitHub
 
-To learn more about Next.js, take a look at the following resources:
+Guide complet : **[SUPABASE-GITHUB.md](./SUPABASE-GITHUB.md)**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run db:link    # lier au projet Supabase niche-signal
+npm run db:push    # pousser les migrations
+```

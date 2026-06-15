@@ -1,0 +1,193 @@
+import type { Dictionary } from "@/i18n/types";
+
+export const en: Dictionary = {
+  meta: {
+    title: "NicheSignal — Find your next SaaS idea in seconds",
+    description:
+      "NicheSignal analyzes reviews, Reddit posts and forums to surface underserved SaaS niches with market data, competitor analysis and opportunity scores.",
+  },
+  nav: {
+    features: "Features",
+    pricing: "Pricing",
+    blog: "Blog",
+    login: "Login",
+    startFree: "Start for free",
+  },
+  hero: {
+    badge: "Live · 10,000+ SaaS analyzed",
+    titleLine1: "Find your next",
+    titleLine2: "SaaS opportunity",
+    subtitle:
+      "NicheSignal analyzes Reddit, G2 and forums to surface underserved SaaS niches — with real competitor data, pain points and an opportunity score.",
+    cta: "Start for free",
+    demoCta: "See a live demo",
+    stats: [
+      "10k+ SaaS analyzed",
+      "Weekly updates",
+      "AI-powered scoring",
+    ],
+    searchPlaceholder: "Try: CRM for freelancers, invoicing for agencies...",
+    analyze: "Analyze",
+    analyzing: "Analyzing...",
+    loginRequired: "Sign in to run your first analysis",
+    proRequired: "Pro subscription required for full reports",
+  },
+  marquee: [
+    "Indie Hackers",
+    "Product Hunt",
+    "YC Alumni",
+    "Solo Founders",
+    "VC Analysts",
+    "Startup Studios",
+    "Micro-SaaS Builders",
+  ],
+  testimonials: [
+    {
+      initials: "AM",
+      quote:
+        "Found my next SaaS idea in 10 minutes. Saved me weeks of manual research.",
+      name: "Alex M.",
+      role: "Indie Hacker",
+      stat: "3 ideas validated",
+    },
+    {
+      initials: "SK",
+      quote:
+        "The competitor data alone is worth it. I finally understand the landscape before building.",
+      name: "Sarah K.",
+      role: "Founder",
+      stat: "$12k MRR reached",
+    },
+    {
+      initials: "MD",
+      quote:
+        "The opportunity score convinced my co-founder. We shipped in 6 weeks.",
+      name: "Marc D.",
+      role: "Product Manager",
+      stat: "1 SaaS shipped",
+    },
+  ],
+  features: {
+    sectionLabel: "What you get",
+    title: "Everything you need to validate a niche",
+    subtitle: "From raw user frustration to a clear go / no-go decision.",
+    items: [
+      {
+        title: "Know exactly what users hate",
+        description:
+          "NicheSignal scans thousands of reviews and Reddit posts to extract the most recurring pain points in any SaaS category — ranked by mention volume.",
+        cta: "Explore pain point analysis →",
+      },
+      {
+        title: "See who's already winning",
+        description:
+          "Get instant data on existing SaaS: estimated ARR/MRR, founding year, G2 rating, pricing and market position — for both US and European players.",
+        cta: "See competitor data →",
+      },
+      {
+        title: "One score to make the call",
+        description:
+          "Our AI combines demand signals, competition level and market size into a single opportunity score — so you know in seconds if a niche is worth pursuing.",
+        cta: "Check opportunity scores →",
+      },
+    ],
+  },
+  mockups: {
+    painPoints: "Pain points",
+    competitors: "Competitors",
+    arrMrr: "ARR / MRR",
+    founded: "Founded",
+    opportunityScore: "Opportunity score",
+    marketSize: "Market size",
+    competition: "Competition",
+    moderate: "Moderate",
+    topPainPoints: "Top pain points",
+    verdict: "Verdict",
+    verdictText:
+      "Attractive market with moderate competition. Clear differentiation angles for a focused solution.",
+    reportTitle: "CRM for freelancers — Report",
+    painPointLabels: [
+      "Complex integrations",
+      "Steep learning curve",
+      "Opaque pricing",
+    ],
+  },
+  pricing: {
+    title: "Simple, transparent pricing",
+    subtitle: "Start free. Upgrade when you need unlimited research.",
+    mostPopular: "Most popular",
+    free: {
+      name: "Free",
+      period: "forever",
+      features: [
+        "2 reports / day",
+        "Basic competitor data",
+        "Opportunity score",
+      ],
+      cta: "Get started free",
+    },
+    pro: {
+      name: "Pro",
+      period: "/month",
+      features: [
+        "Unlimited reports",
+        "Full competitor analysis",
+        "MRR / ARR estimates",
+        "Market size data",
+        "Export to PDF",
+      ],
+      cta: "Start Pro →",
+    },
+  },
+  finalCta: {
+    titleLine1: "Stop guessing.",
+    titleLine2: "Start building.",
+    subtitle: "Join 2,000+ founders who research smarter with NicheSignal.",
+    cta: "Try it free",
+  },
+  footer: {
+    tagline: "Surface underserved SaaS niches with real market intelligence.",
+    builtBy: "Built by a solo founder 🛠️",
+    terms: "Terms of Service",
+    legalNotice: "Legal notice",
+    columns: {
+      product: "Product",
+      resources: "Resources",
+      company: "Company",
+      legal: "Legal",
+      features: "Features",
+      pricing: "Pricing",
+      changelog: "Changelog",
+      blog: "Blog",
+      about: "About",
+      contact: "Contact",
+      privacy: "Privacy",
+    },
+  },
+  auth: {
+    loginTitle: "Log in",
+    signupTitle: "Sign up",
+    loginSubtitle: "Access your analysis reports.",
+    signupSubtitle: "Create a free account in seconds.",
+    loginTab: "Log in",
+    signupTab: "Sign up",
+    email: "Email",
+    password: "Password",
+    emailPlaceholder: "you@example.com",
+    loginButton: "Log in",
+    signupButton: "Create my account",
+    loading: "Loading...",
+    noAccount: "Don't have an account?",
+    hasAccount: "Already have an account?",
+    close: "Close",
+    confirmEmail:
+      "Account created! Check your inbox and click the confirmation link, then log in.",
+    loginFailed: "Could not log in. Check your credentials or confirm your email.",
+  },
+  legal: {
+    backToSite: "← Back to site",
+    lastUpdated: "Last updated",
+    cgvTitle: "Terms of Service",
+    mentionsTitle: "Legal notice",
+  },
+};
