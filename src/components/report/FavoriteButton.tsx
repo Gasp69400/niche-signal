@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/api/fetch";
 import { useI18n } from "@/contexts/I18nContext";
 
 interface FavoriteButtonProps {
@@ -34,9 +35,8 @@ export function FavoriteButton({
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/reports/${reportId}/favorite`, {
+      const res = await apiFetch(`/api/reports/${reportId}/favorite`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ favorite: next }),
       });
 

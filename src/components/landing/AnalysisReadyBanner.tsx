@@ -16,8 +16,6 @@ export function AnalysisReadyBanner({
 }: AnalysisReadyBannerProps) {
   const { locale, t } = useI18n();
 
-  if (!report.id) return null;
-
   return (
     <div className="glass-card mx-auto mt-12 max-w-2xl rounded-2xl p-6 sm:p-8">
       <div className="flex items-start justify-between gap-4">
@@ -29,14 +27,16 @@ export function AnalysisReadyBanner({
             {report.domain}
           </h2>
           <p className="mt-2 text-sm text-muted">
-            {t.hero.reportReadyHint}
+            {report.id ? t.hero.reportReadyHint : t.hero.reportSavePending}
           </p>
         </div>
-        <FavoriteButton
-          reportId={report.id}
-          isFavorite={report.isFavorite}
-          onToggle={onFavoriteChange}
-        />
+        {report.id ? (
+          <FavoriteButton
+            reportId={report.id}
+            isFavorite={report.isFavorite}
+            onToggle={onFavoriteChange}
+          />
+        ) : null}
       </div>
 
       <div className="mt-6 flex items-center justify-between rounded-xl bg-white/[0.04] px-4 py-3">
@@ -47,15 +47,17 @@ export function AnalysisReadyBanner({
         </span>
       </div>
 
-      <Link
-        href={`/${locale}/dashboard/${report.id}`}
-        className="btn-glow mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-3.5 text-sm font-semibold text-white shadow-glow-sm"
-      >
-        {t.hero.viewFullReport}
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-        </svg>
-      </Link>
+      {report.id ? (
+        <Link
+          href={`/${locale}/dashboard/${report.id}`}
+          className="btn-glow mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-accent-blue py-3.5 text-sm font-semibold text-white shadow-glow-sm"
+        >
+          {t.hero.viewFullReport}
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </Link>
+      ) : null}
     </div>
   );
 }

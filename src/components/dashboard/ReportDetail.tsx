@@ -8,6 +8,7 @@ import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
 import { ReportCard } from "@/components/ReportCard";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
+import { apiFetch } from "@/lib/api/fetch";
 import type { AnalyzeReport } from "@/types/market-report";
 
 interface ReportDetailProps {
@@ -29,7 +30,7 @@ export function ReportDetail({ reportId }: ReportDetailProps) {
     setError(null);
 
     try {
-      const res = await fetch(`/api/reports/${reportId}`);
+      const res = await apiFetch(`/api/reports/${reportId}`);
       if (!res.ok) {
         throw new Error(t.dashboard.reportError);
       }
@@ -60,9 +61,8 @@ export function ReportDetail({ reportId }: ReportDetailProps) {
     setError(null);
 
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await apiFetch("/api/analyze", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ domain: domain.trim(), refresh: true }),
       });
 

@@ -47,6 +47,8 @@ export interface Dictionary {
     proRequired: string;
     reportReady: string;
     reportReadyHint: string;
+    reportSavePending: string;
+    retryAnalysis: string;
     viewFullReport: string;
   };
   marquee: string[];

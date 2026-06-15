@@ -6,7 +6,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const user = await getAuthenticatedUser();
+  const user = await getAuthenticatedUser(request);
 
   if (!user) {
     return NextResponse.json({ error: "Connexion requise" }, { status: 401 });

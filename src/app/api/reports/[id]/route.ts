@@ -3,10 +3,10 @@ import { getAuthenticatedUser } from "@/lib/auth/server";
 import { getReportById } from "@/lib/db/reports";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const user = await getAuthenticatedUser();
+  const user = await getAuthenticatedUser(request);
   const report = await getReportById(params.id, user?.id);
 
   if (!report) {

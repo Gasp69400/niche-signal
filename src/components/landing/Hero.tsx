@@ -8,6 +8,7 @@ import { AnalysisReadyBanner } from "@/components/landing/AnalysisReadyBanner";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
 import { ReportDemoMockup } from "@/components/landing/mockups/ReportDemoMockup";
 import { FadeIn } from "@/components/landing/FadeIn";
+import { apiFetch } from "@/lib/api/fetch";
 import type { AnalyzeReport } from "@/types/market-report";
 
 const STAT_ICONS = [
@@ -50,14 +51,10 @@ export function Hero() {
       setIsLoading(true);
       setError(null);
       setReport(null);
-      setTimeout(() => {
-        document.getElementById("report-result")?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
 
       try {
-        const res = await fetch("/api/analyze", {
+        const res = await apiFetch("/api/analyze", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ domain: domain.trim(), refresh: true }),
         });
 
@@ -68,9 +65,12 @@ export function Hero() {
 
         const data: AnalyzeReport = await res.json();
         setReport(data);
-        setTimeout(() => {
-          document.getElementById("report-result")?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        requestAnimationFrame(() => {
+          document.getElementById("report-result")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
       } catch (err) {
         setError(err instanceof Error ? err.message : "Impossible de générer le rapport");
       } finally {
@@ -143,15 +143,12 @@ export function Hero() {
             {!authLoading && !user && (
               <p className="mt-3 text-xs text-muted">{t.hero.loginRequired}</p>
             )}
-            {error && (
-              <p className="mt-3 text-xs text-red-400">{error}</p>
-            )}
           </form>
         </FadeIn>
 
-        {(isLoading || report) && (
+        {(isLoading || report || error) && (
           <div className="mt-12 text-left">
-            <div id="report-result" className="mx-auto max-w-2xl">
+            <div id="report-result" className="mx-auto max-w-2xl scroll-mt-28">
               {isLoading ? (
                 <ReportSkeleton />
               ) : report ? (
@@ -163,6 +160,17 @@ export function Hero() {
                     }
                   />
                 </FadeIn>
+              ) : error ? (
+                <div className="glass-card rounded-2xl p-6 text-center">
+                  <p className="text-sm text-red-400">{error}</p>
+                  <button
+                    type="button"
+                    onClick={() => setError(null)}
+                    className="mt-4 text-sm font-semibold text-accent-blue hover:text-accent-sky"
+                  >
+                    {t.hero.retryAnalysis}
+                  </button>
+                </div>
               ) : null}
             </div>
           </div>
@@ -204,7 +212,7 @@ export function Hero() {
           </div>
         </FadeIn>
 
-        {!report && !isLoading && (
+        {!report && !isLoading && !error && (
           <FadeIn delay={600} className="mt-16">
             <div id="hero-demo" className="animate-levitate">
               <ReportDemoMockup />

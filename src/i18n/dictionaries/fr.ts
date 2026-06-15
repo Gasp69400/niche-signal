@@ -58,6 +58,8 @@ export const fr: Dictionary = {
     proRequired: "Abonnement Pro requis pour les rapports complets",
     reportReady: "Analyse terminée",
     reportReadyHint: "Votre rapport est prêt. Consultez-le sur une page dédiée.",
+    reportSavePending: "Analyse générée. Enregistrement en cours ou indisponible.",
+    retryAnalysis: "Réessayer",
     viewFullReport: "Voir le rapport complet",
   },
   marquee: [
@@ -218,7 +220,7 @@ export const fr: Dictionary = {
     forgotSubtitle: "Entrez votre email pour recevoir un lien de réinitialisation.",
     forgotButton: "Envoyer le lien",
     forgotSuccess:
-      "Email envoyé ! Cliquez sur le lien reçu pour choisir un nouveau mot de passe.",
+      "Si un compte existe avec cet email, vous recevrez un lien de réinitialisation. Vérifiez aussi vos spams.",
     backToLogin: "Retour à la connexion",
     resetTitle: "Nouveau mot de passe",
     resetSubtitle: "Choisissez un nouveau mot de passe pour votre compte.",

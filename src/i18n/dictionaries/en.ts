@@ -58,6 +58,8 @@ export const en: Dictionary = {
     proRequired: "Pro subscription required for full reports",
     reportReady: "Analysis complete",
     reportReadyHint: "Your report is ready. View it on a dedicated page.",
+    reportSavePending: "Analysis generated. Saving is pending or unavailable.",
+    retryAnalysis: "Try again",
     viewFullReport: "View full report",
   },
   marquee: [
@@ -216,7 +218,7 @@ export const en: Dictionary = {
     forgotSubtitle: "Enter your email to receive a reset link.",
     forgotButton: "Send reset link",
     forgotSuccess:
-      "Email sent! Click the link in your inbox to choose a new password.",
+      "If an account exists for this email, you'll receive a reset link. Check your spam folder too.",
     backToLogin: "Back to log in",
     resetTitle: "New password",
     resetSubtitle: "Choose a new password for your account.",

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
+import { apiFetch } from "@/lib/api/fetch";
 import { FavoriteButton } from "@/components/report/FavoriteButton";
 import type { ReportSummary } from "@/types/report-summary";
 
@@ -38,7 +39,7 @@ export function ReportsDashboard() {
     try {
       const params = new URLSearchParams();
       if (tab === "favorites") params.set("favorites", "true");
-      const res = await fetch(`/api/reports?${params.toString()}`);
+      const res = await apiFetch(`/api/reports?${params.toString()}`);
       if (!res.ok) {
         throw new Error(t.dashboard.loadError);
       }

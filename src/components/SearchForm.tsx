@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ReportCard } from "@/components/ReportCard";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
+import { apiFetch } from "@/lib/api/fetch";
 import type { AnalyzeReport } from "@/types/market-report";
 
 export function SearchForm() {
@@ -20,9 +21,8 @@ export function SearchForm() {
     setReport(null);
 
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await apiFetch("/api/analyze", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ domain: niche.trim() }),
       });
 

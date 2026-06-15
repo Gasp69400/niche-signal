@@ -22,12 +22,22 @@ export function ResetPasswordForm() {
   useEffect(() => {
     let cancelled = false;
 
-    async function checkSession() {
+    async function initSession() {
       const { createClient } = await import("@/lib/supabase/client");
       const supabase = createClient();
       if (!supabase) {
         if (!cancelled) setReady(false);
         return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error) {
+          window.history.replaceState({}, "", window.location.pathname);
+        }
       }
 
       const { data: { session } } = await supabase.auth.getSession();
@@ -36,7 +46,7 @@ export function ResetPasswordForm() {
       }
     }
 
-    void checkSession();
+    void initSession();
     return () => {
       cancelled = true;
     };

@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Domain is required" }, { status: 400 });
   }
 
-  const allowed = await userCanAnalyze();
+  const allowed = await userCanAnalyze(request);
   if (!allowed) {
     return NextResponse.json(
       { error: "Connexion requise pour générer un rapport" },
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const user = await getAuthenticatedUser();
+  const user = await getAuthenticatedUser(request);
   const trimmedDomain = domain.trim();
 
   try {

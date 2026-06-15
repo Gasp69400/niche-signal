@@ -3,7 +3,7 @@ import { getAuthenticatedUser } from "@/lib/auth/server";
 import { getReportsByUser } from "@/lib/db/reports";
 
 export async function GET(request: NextRequest) {
-  const user = await getAuthenticatedUser();
+  const user = await getAuthenticatedUser(request);
 
   if (!user) {
     return NextResponse.json({ error: "Connexion requise" }, { status: 401 });
