@@ -211,6 +211,22 @@ export const en: Dictionary = {
     confirmEmail:
       "Account created! Check your inbox and click the confirmation link, then log in.",
     loginFailed: "Could not log in. Check your credentials or confirm your email.",
+    forgotPassword: "Forgot password?",
+    forgotTitle: "Reset your password",
+    forgotSubtitle: "Enter your email to receive a reset link.",
+    forgotButton: "Send reset link",
+    forgotSuccess:
+      "Email sent! Click the link in your inbox to choose a new password.",
+    backToLogin: "Back to log in",
+    resetTitle: "New password",
+    resetSubtitle: "Choose a new password for your account.",
+    newPassword: "New password",
+    confirmPassword: "Confirm password",
+    resetButton: "Save password",
+    resetSuccess: "Password updated. You can log in now.",
+    resetInvalidLink:
+      "Invalid or expired link. Request a new one from the login page.",
+    passwordMismatch: "Passwords do not match.",
   },
   legal: {
     backToSite: "← Back to site",

@@ -213,6 +213,22 @@ export const fr: Dictionary = {
     confirmEmail:
       "Compte créé ! Vérifiez votre boîte mail et cliquez sur le lien de confirmation, puis reconnectez-vous.",
     loginFailed: "Connexion impossible. Vérifiez vos identifiants ou confirmez votre email.",
+    forgotPassword: "Mot de passe oublié ?",
+    forgotTitle: "Réinitialiser le mot de passe",
+    forgotSubtitle: "Entrez votre email pour recevoir un lien de réinitialisation.",
+    forgotButton: "Envoyer le lien",
+    forgotSuccess:
+      "Email envoyé ! Cliquez sur le lien reçu pour choisir un nouveau mot de passe.",
+    backToLogin: "Retour à la connexion",
+    resetTitle: "Nouveau mot de passe",
+    resetSubtitle: "Choisissez un nouveau mot de passe pour votre compte.",
+    newPassword: "Nouveau mot de passe",
+    confirmPassword: "Confirmer le mot de passe",
+    resetButton: "Enregistrer le mot de passe",
+    resetSuccess: "Mot de passe mis à jour. Vous pouvez vous connecter.",
+    resetInvalidLink:
+      "Lien invalide ou expiré. Demandez un nouveau lien depuis la page de connexion.",
+    passwordMismatch: "Les mots de passe ne correspondent pas.",
   },
   legal: {
     backToSite: "← Retour au site",

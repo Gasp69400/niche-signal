@@ -29,6 +29,11 @@ interface AuthContextValue {
     session: Session | null;
     needsEmailConfirmation: boolean;
   }>;
+  resetPassword: (
+    email: string,
+    locale: string
+  ) => Promise<{ error: string | null }>;
+  updatePassword: (password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -166,6 +171,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [supabase]
   );
 
+  const resetPassword = useCallback(
+    async (email: string, locale: string) => {
+      if (!supabase) {
+        return { error: "Supabase non configuré" };
+      }
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${getSiteUrl()}/auth/callback?next=/${locale}/auth/reset-password`,
+      });
+
+      return { error: error?.message ?? null };
+    },
+    [supabase]
+  );
+
+  const updatePassword = useCallback(
+    async (password: string) => {
+      if (!supabase) {
+        return { error: "Supabase non configuré" };
+      }
+
+      const { error } = await supabase.auth.updateUser({ password });
+      return { error: error?.message ?? null };
+    },
+    [supabase]
+  );
+
   const signOut = useCallback(async () => {
     if (supabase) await supabase.auth.signOut();
     setUser(null);
@@ -183,6 +215,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         canAnalyze,
         signIn,
         signUp,
+        resetPassword,
+        updatePassword,
         signOut,
         refreshProfile,
       }}

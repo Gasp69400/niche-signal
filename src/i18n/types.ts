@@ -138,6 +138,20 @@ export interface Dictionary {
     close: string;
     confirmEmail: string;
     loginFailed: string;
+    forgotPassword: string;
+    forgotTitle: string;
+    forgotSubtitle: string;
+    forgotButton: string;
+    forgotSuccess: string;
+    backToLogin: string;
+    resetTitle: string;
+    resetSubtitle: string;
+    newPassword: string;
+    confirmPassword: string;
+    resetButton: string;
+    resetSuccess: string;
+    resetInvalidLink: string;
+    passwordMismatch: string;
   };
   legal: {
     backToSite: string;

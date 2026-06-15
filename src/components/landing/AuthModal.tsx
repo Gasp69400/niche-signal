@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useI18n } from "@/contexts/I18nContext";
 
-type AuthMode = "login" | "signup";
+type AuthMode = "login" | "signup" | "forgot";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,8 +18,8 @@ export function AuthModal({
   onClose,
   initialMode = "login",
 }: AuthModalProps) {
-  const { signIn, signUp } = useAuth();
-  const { t } = useI18n();
+  const { signIn, signUp, resetPassword } = useAuth();
+  const { t, locale } = useI18n();
   const a = t.auth;
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState("");
@@ -62,6 +62,19 @@ export function AuthModal({
     setSubmitting(true);
     setError(null);
     setSuccess(null);
+
+    if (mode === "forgot") {
+      const result = await resetPassword(email, locale);
+      setSubmitting(false);
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+
+      setSuccess(a.forgotSuccess);
+      return;
+    }
 
     if (mode === "login") {
       const result = await signIn(email, password);
@@ -127,12 +140,21 @@ export function AuthModal({
         </button>
 
         <h2 className="text-xl font-bold text-white">
-          {mode === "login" ? a.loginTitle : a.signupTitle}
+          {mode === "login"
+            ? a.loginTitle
+            : mode === "signup"
+              ? a.signupTitle
+              : a.forgotTitle}
         </h2>
         <p className="mt-1 text-sm text-muted">
-          {mode === "login" ? a.loginSubtitle : a.signupSubtitle}
+          {mode === "login"
+            ? a.loginSubtitle
+            : mode === "signup"
+              ? a.signupSubtitle
+              : a.forgotSubtitle}
         </p>
 
+        {mode !== "forgot" && (
         <div className="mt-6 flex rounded-xl bg-white/[0.03] p-1">
           <button
             type="button"
@@ -157,6 +179,7 @@ export function AuthModal({
             {a.signupTab}
           </button>
         </div>
+        )}
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
@@ -173,10 +196,26 @@ export function AuthModal({
               className="w-full rounded-xl border border-glass-border bg-background px-4 py-3 text-white placeholder:text-muted/50 outline-none transition focus:border-accent-blue/50 focus:ring-2 focus:ring-accent-blue/20"
             />
           </div>
+          {mode !== "forgot" && (
           <div>
-            <label htmlFor="auth-password" className="mb-1.5 block text-sm font-medium text-muted">
-              {a.password}
-            </label>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label htmlFor="auth-password" className="text-sm font-medium text-muted">
+                {a.password}
+              </label>
+              {mode === "login" && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("forgot");
+                    setError(null);
+                    setSuccess(null);
+                  }}
+                  className="text-xs font-medium text-accent-blue hover:text-accent-sky"
+                >
+                  {a.forgotPassword}
+                </button>
+              )}
+            </div>
             <input
               id="auth-password"
               type="password"
@@ -188,6 +227,7 @@ export function AuthModal({
               className="w-full rounded-xl border border-glass-border bg-background px-4 py-3 text-white placeholder:text-muted/50 outline-none transition focus:border-accent-blue/50 focus:ring-2 focus:ring-accent-blue/20"
             />
           </div>
+          )}
 
           {error && (
             <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400 ring-1 ring-red-500/20">
@@ -210,12 +250,26 @@ export function AuthModal({
               ? a.loading
               : mode === "login"
                 ? a.loginButton
-                : a.signupButton}
+                : mode === "signup"
+                  ? a.signupButton
+                  : a.forgotButton}
           </button>
         </form>
 
         <p className="mt-4 text-center text-sm text-muted">
-          {mode === "login" ? (
+          {mode === "forgot" ? (
+            <button
+              type="button"
+              onClick={() => {
+                setMode("login");
+                setError(null);
+                setSuccess(null);
+              }}
+              className="font-semibold text-accent-blue hover:text-accent-sky"
+            >
+              {a.backToLogin}
+            </button>
+          ) : mode === "login" ? (
             <>
               {a.noAccount}{" "}
               <button
