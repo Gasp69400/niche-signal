@@ -10,6 +10,7 @@ CREATE TABLE reports (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   domain TEXT NOT NULL,
   data JSONB NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -17,6 +18,7 @@ CREATE INDEX idx_reports_domain ON reports(domain);
 CREATE INDEX idx_reports_created_at ON reports(created_at DESC);
 CREATE INDEX idx_reports_domain_created ON reports(domain, created_at DESC);
 CREATE INDEX idx_reports_data ON reports USING gin (data);
+CREATE INDEX idx_reports_user_id ON reports(user_id, created_at DESC);
 
 ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
 

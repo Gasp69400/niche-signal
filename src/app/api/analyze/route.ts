@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeDomain } from "@/lib/ai/analyze-domain";
-import { userCanAnalyze } from "@/lib/auth/server";
+import { getAuthenticatedUser, userCanAnalyze } from "@/lib/auth/server";
 import { getCachedReport, saveReport } from "@/lib/db/reports";
 
 export async function POST(request: NextRequest) {
@@ -18,20 +18,29 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const user = await getAuthenticatedUser();
   const trimmedDomain = domain.trim();
 
   try {
     if (!refresh) {
       const cached = await getCachedReport(trimmedDomain);
       if (cached) {
-        return NextResponse.json(cached);
+        if (user) {
+          try {
+            const saved = await saveReport(cached, user.id);
+            return NextResponse.json({ ...cached, ...saved, cached: true });
+          } catch (saveError) {
+            console.error("Failed to link cached report to user:", saveError);
+          }
+        }
+        return NextResponse.json({ ...cached, cached: true });
       }
     }
 
     const report = await analyzeDomain(trimmedDomain);
 
     try {
-      const savedReport = await saveReport(report);
+      const savedReport = await saveReport(report, user?.id);
       return NextResponse.json(savedReport);
     } catch (saveError) {
       console.error("Failed to save report:", saveError);

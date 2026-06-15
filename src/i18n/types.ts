@@ -6,6 +6,22 @@ export interface Dictionary {
     blog: string;
     login: string;
     startFree: string;
+    dashboard: string;
+    logout: string;
+  };
+  dashboard: {
+    label: string;
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    newAnalysis: string;
+    empty: string;
+    noResults: string;
+    selectReport: string;
+    selectHint: string;
+    score: string;
+    loadError: string;
+    reportError: string;
   };
   hero: {
     badge: string;

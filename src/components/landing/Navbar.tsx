@@ -58,7 +58,13 @@ export function Navbar() {
           <LanguageSwitcher />
           {user ? (
             <>
-              <span className="hidden max-w-[140px] truncate text-sm text-muted sm:inline">
+              <Link
+                href={`/${locale}/dashboard`}
+                className="btn-glow hidden rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-white/90 transition hover:border-white/40 hover:bg-white/5 sm:inline"
+              >
+                {t.nav.dashboard}
+              </Link>
+              <span className="hidden max-w-[140px] truncate text-sm text-muted lg:inline">
                 {user.email}
               </span>
               <button
@@ -66,7 +72,7 @@ export function Navbar() {
                 onClick={() => signOut()}
                 className="btn-glow rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-white/90 transition hover:border-white/40 hover:bg-white/5"
               >
-                Déconnexion
+                {t.nav.logout}
               </button>
             </>
           ) : (

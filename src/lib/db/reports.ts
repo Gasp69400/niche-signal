@@ -1,7 +1,69 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { AnalyzeReport } from "@/types/market-report";
+import type { ReportSummary } from "@/types/report-summary";
 
 const CACHE_DAYS = 7;
+
+interface ReportRow {
+  id: string;
+  domain: string;
+  data: AnalyzeReport | null;
+  opportunity_score: number | null;
+  market_size: string | null;
+  competition: string | null;
+  created_at: string;
+  user_id: string | null;
+}
+
+function mapRowToSummary(row: ReportRow): ReportSummary {
+  const stored = row.data;
+  return {
+    id: row.id,
+    domain: row.domain,
+    opportunityScore:
+      stored?.opportunityScore ?? row.opportunity_score ?? 0,
+    marketSize: stored?.marketSize ?? row.market_size ?? "—",
+    competition: stored?.competition ?? row.competition ?? "—",
+    createdAt: row.created_at,
+  };
+}
+
+function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt: string } {
+  if (row.data) {
+    return {
+      ...(row.data as AnalyzeReport),
+      id: row.id,
+      domain: row.domain,
+      createdAt: row.created_at,
+    };
+  }
+
+  return {
+    id: row.id,
+    domain: row.domain,
+    opportunityScore: row.opportunity_score ?? 0,
+    marketSize: row.market_size ?? "—",
+    competition: row.competition ?? "—",
+    buildDifficulty: "—",
+    trend: "—",
+    trendPercent: "—",
+    painPoints: [],
+    competitors: [],
+    verdict: "",
+    marketTrend: { data: [], sixMonthChange: 0, trend: "—" },
+    radar: [],
+    persona: {
+      role: "—",
+      frustration: "—",
+      currentTool: "—",
+      willingnessToPay: "—",
+      whereToFind: "—",
+    },
+    positioning: { oneLiner: "—", differentiators: [] },
+    similarNiches: [],
+    createdAt: row.created_at,
+  };
+}
 
 export async function getCachedReport(
   domain: string
@@ -12,7 +74,7 @@ export async function getCachedReport(
 
   const { data: match, error } = await supabase
     .from("reports")
-    .select("id, domain, data, created_at")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
     .ilike("domain", trimmedDomain)
     .gte("created_at", cutoff)
     .not("data", "is", null)
@@ -20,30 +82,36 @@ export async function getCachedReport(
     .limit(1)
     .maybeSingle();
 
-  if (error || !match?.data) {
+  if (error || !match) {
     return null;
   }
 
-  const report = match.data as AnalyzeReport;
-  return {
-    ...report,
-    id: match.id,
-    createdAt: match.created_at,
-    cached: true,
-  };
+  return mapRowToReport(match as ReportRow);
 }
 
 export async function saveReport(
-  report: AnalyzeReport
+  report: AnalyzeReport,
+  userId?: string
 ): Promise<AnalyzeReport & { id: string; createdAt: string }> {
   const supabase = createAdminClient();
 
+  const payload: Record<string, unknown> = {
+    domain: report.domain.trim(),
+    data: report,
+    opportunity_score: report.opportunityScore,
+    market_size: report.marketSize,
+    competition: report.competition,
+    build_difficulty: report.buildDifficulty,
+    verdict: report.verdict,
+  };
+
+  if (userId) {
+    payload.user_id = userId;
+  }
+
   const { data: savedReport, error: reportError } = await supabase
     .from("reports")
-    .insert({
-      domain: report.domain.trim(),
-      data: report,
-    })
+    .insert(payload)
     .select("id, created_at")
     .single();
 
@@ -59,26 +127,53 @@ export async function saveReport(
   };
 }
 
+export async function getReportsByUser(
+  userId: string,
+  search?: string
+): Promise<ReportSummary[]> {
+  const supabase = createAdminClient();
+
+  let query = supabase
+    .from("reports")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (search?.trim()) {
+    query = query.ilike("domain", `%${search.trim()}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error || !data) {
+    return [];
+  }
+
+  return (data as ReportRow[]).map(mapRowToSummary);
+}
+
 export async function getReportById(
-  id: string
+  id: string,
+  userId?: string
 ): Promise<(AnalyzeReport & { id: string; createdAt: string }) | null> {
   const supabase = createAdminClient();
 
   const { data: report, error: reportError } = await supabase
     .from("reports")
-    .select("id, domain, data, created_at")
+    .select("id, domain, data, opportunity_score, market_size, competition, created_at, user_id")
     .eq("id", id)
     .single();
 
-  if (reportError || !report || !report.data) {
+  if (reportError || !report) {
     return null;
   }
 
-  const stored = report.data as AnalyzeReport;
-  return {
-    ...stored,
-    id: report.id,
-    domain: report.domain,
-    createdAt: report.created_at,
-  };
+  const row = report as ReportRow;
+
+  if (userId && row.user_id && row.user_id !== userId) {
+    return null;
+  }
+
+  return mapRowToReport(row);
 }
