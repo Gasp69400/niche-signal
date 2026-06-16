@@ -121,7 +121,13 @@ export async function saveReport(
     .single();
 
   if (reportError || !savedReport) {
-    throw new Error(reportError?.message ?? "Failed to save report");
+    const message = reportError?.message ?? "Failed to save report";
+    if (message.includes("'data'") || message.includes("schema cache")) {
+      throw new Error(
+        "Base de données non à jour : exécute la migration SQL dans Supabase (colonne data manquante sur reports)."
+      );
+    }
+    throw new Error(message);
   }
 
   return {
