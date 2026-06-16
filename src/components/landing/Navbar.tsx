@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/contexts/AuthContext";
@@ -58,13 +58,7 @@ export function Navbar() {
           <LanguageSwitcher />
           {user ? (
             <>
-              <Link
-                href={`/${locale}/dashboard`}
-                className="btn-glow hidden rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-white/90 transition hover:border-white/40 hover:bg-white/5 sm:inline"
-              >
-                {t.nav.dashboard}
-              </Link>
-              <span className="hidden max-w-[140px] truncate text-sm text-muted lg:inline">
+              <span className="hidden max-w-[140px] truncate text-sm text-muted sm:inline">
                 {user.email}
               </span>
               <button
