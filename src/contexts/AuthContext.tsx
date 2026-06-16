@@ -133,42 +133,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = useCallback(
     async (email: string, password: string) => {
-      if (!supabase) {
+      try {
+        const res = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          return {
+            error:
+              typeof data.error === "string"
+                ? data.error
+                : "Inscription impossible",
+            session: null,
+            needsEmailConfirmation: false,
+          };
+        }
+
+        const login = await signIn(email, password);
+        return { ...login, needsEmailConfirmation: false };
+      } catch {
         return {
-          error: "Supabase non configuré",
+          error: "Inscription impossible",
           session: null,
           needsEmailConfirmation: false,
         };
       }
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${getSiteUrl()}/fr`,
-        },
-      });
-
-      if (error) {
-        return {
-          error: error.message,
-          session: null,
-          needsEmailConfirmation: false,
-        };
-      }
-
-      if (data.session?.user) {
-        setUser(data.session.user);
-        const profile = await fetchProfile(supabase, data.session.user.id);
-        setProfile(profile);
-      }
-
-      return {
-        error: null,
-        session: data.session,
-        needsEmailConfirmation: Boolean(data.user && !data.session),
-      };
     },
-    [supabase]
+    [signIn]
   );
 
   const resetPassword = useCallback(

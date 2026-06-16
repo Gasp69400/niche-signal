@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useI18n } from "@/contexts/I18nContext";
+import { mapAuthError } from "@/lib/auth/errors";
 
 type AuthMode = "login" | "signup" | "forgot";
 
@@ -68,7 +69,7 @@ export function AuthModal({
       setSubmitting(false);
 
       if (result.error) {
-        setError(result.error);
+        setError(mapAuthError(result.error, locale));
         return;
       }
 
@@ -81,7 +82,7 @@ export function AuthModal({
       setSubmitting(false);
 
       if (result.error) {
-        setError(result.error);
+        setError(mapAuthError(result.error, locale));
         return;
       }
 
@@ -98,7 +99,7 @@ export function AuthModal({
     setSubmitting(false);
 
     if (result.error) {
-      setError(result.error);
+      setError(mapAuthError(result.error, locale));
       return;
     }
 
