@@ -35,7 +35,12 @@ export function Hero() {
   const pendingAnalysisRef = useRef<string | null>(null);
 
   function scrollToDemo() {
-    document.getElementById("hero-demo")?.scrollIntoView({ behavior: "smooth" });
+    requestAnimationFrame(() => {
+      document.getElementById("hero-demo")?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    });
   }
 
   const runAnalysis = useCallback(
@@ -226,13 +231,11 @@ export function Hero() {
           </div>
         </FadeIn>
 
-        {!report && !isLoading && !error && (
-          <FadeIn delay={600} className="mt-16">
-            <div id="hero-demo" className="animate-levitate">
-              <ReportDemoMockup />
-            </div>
-          </FadeIn>
-        )}
+        <FadeIn delay={600} className="mt-16">
+          <div id="hero-demo" className="scroll-mt-32 animate-levitate">
+            <ReportDemoMockup />
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

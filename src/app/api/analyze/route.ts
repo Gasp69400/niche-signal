@@ -19,6 +19,13 @@ export async function POST(request: NextRequest) {
   }
 
   const user = await getAuthenticatedUser(request);
+  if (!user) {
+    return NextResponse.json(
+      { error: "Session expirée, reconnectez-vous" },
+      { status: 401 }
+    );
+  }
+
   const trimmedDomain = domain.trim();
 
   try {
@@ -31,6 +38,9 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ ...cached, ...saved, cached: true });
           } catch (saveError) {
             console.error("Failed to link cached report to user:", saveError);
+            const message =
+              saveError instanceof Error ? saveError.message : "Échec sauvegarde";
+            return NextResponse.json({ error: message }, { status: 500 });
           }
         }
         return NextResponse.json({ ...cached, cached: true });
@@ -40,11 +50,15 @@ export async function POST(request: NextRequest) {
     const report = await analyzeDomain(trimmedDomain);
 
     try {
-      const savedReport = await saveReport(report, user?.id);
+      const savedReport = await saveReport(report, user.id);
       return NextResponse.json(savedReport);
     } catch (saveError) {
       console.error("Failed to save report:", saveError);
-      return NextResponse.json(report);
+      const message =
+        saveError instanceof Error
+          ? saveError.message
+          : "Impossible d'enregistrer le rapport";
+      return NextResponse.json({ error: message }, { status: 500 });
     }
   } catch (error) {
     console.error("Analysis failed:", error);

@@ -102,15 +102,16 @@ export async function saveReport(
   const payload: Record<string, unknown> = {
     domain: report.domain.trim(),
     data: report,
-    opportunity_score: report.opportunityScore,
-    market_size: report.marketSize,
-    competition: report.competition,
-    build_difficulty: report.buildDifficulty,
-    verdict: report.verdict,
+    opportunity_score: report.opportunityScore ?? 0,
+    market_size: report.marketSize ?? "—",
+    competition: report.competition ?? "—",
+    build_difficulty: report.buildDifficulty ?? "—",
+    verdict: report.verdict ?? "",
+    user_id: userId,
   };
 
-  if (userId) {
-    payload.user_id = userId;
+  if (!userId) {
+    throw new Error("Utilisateur requis pour enregistrer le rapport");
   }
 
   const { data: savedReport, error: reportError } = await supabase
