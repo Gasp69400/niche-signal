@@ -220,6 +220,7 @@ export function ReportCard({ report, onAnalyzeNiche, onFavoriteChange }: ReportC
       </div>
 
       <ReportActionBar
+        report={report}
         reportId={report.id}
         isPro={isPro}
         onSave={() => {

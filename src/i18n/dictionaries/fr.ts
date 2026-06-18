@@ -38,6 +38,15 @@ export const fr: Dictionary = {
     add: "Ajouter aux favoris",
     remove: "Retirer des favoris",
   },
+  report: {
+    exportPdf: "Exporter en PDF",
+    exportPdfPro: "Export PDF — plan Pro requis",
+    exportingPdf: "Export en cours…",
+    shareReport: "Partager ce rapport",
+    linkCopied: "Lien copié !",
+    save: "Sauvegarder",
+    savePro: "Réservé au plan Pro",
+  },
   hero: {
     badge: "Live · 10 000+ SaaS analysés",
     titleLine1: "Trouvez votre prochaine",

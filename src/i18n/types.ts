@@ -32,6 +32,15 @@ export interface Dictionary {
     add: string;
     remove: string;
   };
+  report: {
+    exportPdf: string;
+    exportPdfPro: string;
+    exportingPdf: string;
+    shareReport: string;
+    linkCopied: string;
+    save: string;
+    savePro: string;
+  };
   hero: {
     badge: string;
     titleLine1: string;

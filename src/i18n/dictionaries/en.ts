@@ -38,6 +38,15 @@ export const en: Dictionary = {
     add: "Add to favorites",
     remove: "Remove from favorites",
   },
+  report: {
+    exportPdf: "Export PDF",
+    exportPdfPro: "PDF export — Pro plan required",
+    exportingPdf: "Exporting…",
+    shareReport: "Share this report",
+    linkCopied: "Link copied!",
+    save: "Save",
+    savePro: "Pro plan required",
+  },
   hero: {
     badge: "Live · 10,000+ SaaS analyzed",
     titleLine1: "Find your next",
