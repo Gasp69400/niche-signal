@@ -66,28 +66,35 @@ export function ReportActionBar({
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-glass-border bg-background/80 px-4 py-3 backdrop-blur-xl print:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-glass-border bg-background/90 px-4 py-3 backdrop-blur-xl print:hidden">
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-3 sm:justify-between">
         <button
           type="button"
           onClick={handleExportPdf}
           disabled={exporting}
           title={isPro ? t.report.exportPdf : t.report.exportPdfPro}
-          className={`btn-glow inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition ${
+          className={`group relative inline-flex items-center gap-2.5 overflow-hidden rounded-xl px-5 py-3 text-sm font-semibold transition disabled:opacity-60 ${
             isPro
-              ? "border-glass-border text-white/90 hover:border-white/20 hover:bg-white/5"
-              : "border-glass-border text-muted hover:border-accent-blue/30 hover:text-white"
-          } disabled:opacity-50`}
+              ? "bg-gradient-to-r from-accent-blue to-accent-sky text-white shadow-glow-sm hover:shadow-glow"
+              : "border border-glass-border bg-white/[0.03] text-muted hover:border-accent-blue/40 hover:text-white"
+          }`}
         >
-          {!isPro && (
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          {isPro && (
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition group-hover:opacity-100" />
+          )}
+          {!isPro ? (
+            <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
             </svg>
+          ) : (
+            <span className="relative rounded-md bg-white/20 px-1.5 py-0.5 text-[10px] font-bold tracking-wider">
+              {t.report.exportPdfBadge}
+            </span>
           )}
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          <svg className="relative h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125V4.875a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
           </svg>
-          {exporting ? t.report.exportingPdf : t.report.exportPdf}
+          <span className="relative">{exporting ? t.report.exportingPdf : t.report.exportPdf}</span>
         </button>
 
         <button
@@ -108,7 +115,7 @@ export function ReportActionBar({
           title={isPro ? t.report.save : t.report.savePro}
           className={`btn-glow inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
             isPro
-              ? "bg-accent-blue text-white shadow-glow-sm"
+              ? "border border-glass-border bg-white/[0.04] text-white/90 hover:bg-white/[0.08]"
               : "cursor-not-allowed border border-glass-border text-muted opacity-60"
           }`}
         >

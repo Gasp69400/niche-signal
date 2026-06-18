@@ -39,9 +39,10 @@ export const en: Dictionary = {
     remove: "Remove from favorites",
   },
   report: {
-    exportPdf: "Export PDF",
-    exportPdfPro: "PDF export — Pro plan required",
-    exportingPdf: "Exporting…",
+    exportPdf: "Download PDF brief",
+    exportPdfPro: "PDF brief — Pro plan required",
+    exportPdfBadge: "PRO",
+    exportingPdf: "Preparing PDF…",
     shareReport: "Share this report",
     linkCopied: "Link copied!",
     save: "Save",

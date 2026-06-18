@@ -4,7 +4,10 @@ export interface ReportPdfLabels {
   brand: string;
   tagline: string;
   reportTitle: string;
+  reportSubtitle: string;
   generatedOn: string;
+  reference: string;
+  executiveSummary: string;
   opportunityScore: string;
   marketSize: string;
   competition: string;
@@ -17,6 +20,8 @@ export interface ReportPdfLabels {
   persona: string;
   positioning: string;
   verdict: string;
+  verdictPositive: string;
+  verdictCaution: string;
   similarNiches: string;
   role: string;
   frustration: string;
@@ -29,68 +34,81 @@ export interface ReportPdfLabels {
   price: string;
   footer: string;
   proBadge: string;
+  confidential: string;
 }
 
 const LABELS: Record<Locale, ReportPdfLabels> = {
   fr: {
     brand: "NicheSignal",
-    tagline: "Analyse de niche SaaS",
-    reportTitle: "Rapport d'analyse de marché",
-    generatedOn: "Généré le",
+    tagline: "Intelligence marché SaaS",
+    reportTitle: "Dossier d'opportunité",
+    reportSubtitle: "Analyse concurrentielle & scoring de niche",
+    generatedOn: "Émis le",
+    reference: "Réf.",
+    executiveSummary: "Synthèse exécutive",
     opportunityScore: "Score d'opportunité",
     marketSize: "Taille du marché",
     competition: "Concurrence",
     buildDifficulty: "Difficulté de build",
-    marketTrend: "Tendance du marché",
-    sixMonthChange: "Évolution 6 mois",
-    radar: "Analyse détaillée",
-    painPoints: "Pain points",
-    competitors: "Concurrents",
-    persona: "Persona cible",
+    marketTrend: "Dynamique de marché",
+    sixMonthChange: "Variation 6 mois",
+    radar: "Dimensions stratégiques",
+    painPoints: "Pain points identifiés",
+    competitors: "Cartographie concurrentielle",
+    persona: "Persona acheteur",
     positioning: "Angle de positionnement",
-    verdict: "Verdict",
-    similarNiches: "Niches similaires",
+    verdict: "Recommandation",
+    verdictPositive: "Fenêtre d'opportunité favorable",
+    verdictCaution: "Approche prudente recommandée",
+    similarNiches: "Niches adjacentes",
     role: "Rôle",
-    frustration: "Frustration",
-    currentTool: "Outil actuel",
-    willingnessToPay: "Budget",
-    whereToFind: "Où le trouver",
+    frustration: "Frustration clé",
+    currentTool: "Stack actuel",
+    willingnessToPay: "Budget cible",
+    whereToFind: "Canaux d'acquisition",
     arrMrr: "ARR / MRR",
-    founded: "Fondé en",
-    rating: "Note",
-    price: "Prix",
-    footer: "Rapport confidentiel — NicheSignal Pro",
-    proBadge: "Plan Pro",
+    founded: "Création",
+    rating: "Satisfaction",
+    price: "Pricing",
+    footer: "Document confidentiel — Usage interne & décision stratégique",
+    proBadge: "PRO",
+    confidential: "Confidentiel",
   },
   en: {
     brand: "NicheSignal",
-    tagline: "SaaS niche intelligence",
-    reportTitle: "Market analysis report",
-    generatedOn: "Generated on",
+    tagline: "SaaS market intelligence",
+    reportTitle: "Opportunity brief",
+    reportSubtitle: "Competitive landscape & niche scoring",
+    generatedOn: "Issued",
+    reference: "Ref.",
+    executiveSummary: "Executive summary",
     opportunityScore: "Opportunity score",
     marketSize: "Market size",
     competition: "Competition",
     buildDifficulty: "Build difficulty",
-    marketTrend: "Market trend",
+    marketTrend: "Market dynamics",
     sixMonthChange: "6-month change",
-    radar: "Detailed analysis",
-    painPoints: "Pain points",
-    competitors: "Competitors",
-    persona: "Target persona",
+    radar: "Strategic dimensions",
+    painPoints: "Identified pain points",
+    competitors: "Competitive landscape",
+    persona: "Buyer persona",
     positioning: "Positioning angle",
-    verdict: "Verdict",
-    similarNiches: "Similar niches",
+    verdict: "Recommendation",
+    verdictPositive: "Favorable opportunity window",
+    verdictCaution: "Proceed with validation",
+    similarNiches: "Adjacent niches",
     role: "Role",
-    frustration: "Frustration",
-    currentTool: "Current tool",
-    willingnessToPay: "Willingness to pay",
-    whereToFind: "Where to find them",
+    frustration: "Key frustration",
+    currentTool: "Current stack",
+    willingnessToPay: "Target budget",
+    whereToFind: "Acquisition channels",
     arrMrr: "ARR / MRR",
     founded: "Founded",
-    rating: "Rating",
-    price: "Price",
-    footer: "Confidential report — NicheSignal Pro",
-    proBadge: "Pro plan",
+    rating: "Satisfaction",
+    price: "Pricing",
+    footer: "Confidential document — Internal & strategic use only",
+    proBadge: "PRO",
+    confidential: "Confidential",
   },
 };
 

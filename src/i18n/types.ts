@@ -35,6 +35,7 @@ export interface Dictionary {
   report: {
     exportPdf: string;
     exportPdfPro: string;
+    exportPdfBadge: string;
     exportingPdf: string;
     shareReport: string;
     linkCopied: string;
