@@ -1,4 +1,9 @@
-import type { GeographicFocus, MarketTrendDirection, PainPoint } from "@/types/market-report";
+import type {
+  GeographicFocus,
+  MarketTrendDirection,
+  MonetizationModel,
+  PainPoint,
+} from "@/types/market-report";
 import { hashDomain } from "@/lib/ai/response-quality";
 
 const MAX_RANGE_RATIO = 2;
@@ -309,4 +314,222 @@ export function resolvePainLevel(
 
 export function formatPainLevel(painLevel: number): string {
   return `${painLevel}/10`;
+}
+
+const MONETIZATION_LABELS: Record<MonetizationModel, string> = {
+  subscription: "SaaS mensuel",
+  freemium: "Freemium",
+  usage_based: "Usage-based",
+  one_time: "Licence unique",
+  hybrid: "Hybride",
+  other: "Autre",
+};
+
+export function normalizeMonetizationModel(
+  value: string | undefined,
+  competitorPrices?: string[]
+): { key: MonetizationModel; label: string } {
+  const raw = (value || "").trim();
+  const lower = raw.toLowerCase();
+  const pricesText = (competitorPrices ?? []).join(" ").toLowerCase();
+  const combined = `${lower} ${pricesText}`;
+
+  const matchKey = (patterns: RegExp[], key: MonetizationModel) => {
+    if (patterns.some((pattern) => pattern.test(combined))) {
+      return { key, label: raw || MONETIZATION_LABELS[key] };
+    }
+    return null;
+  };
+
+  const matched =
+    matchKey([/freemium|free tier|gratuit.*premium|free.*paid|free plan/i], "freemium") ??
+    matchKey(
+      [/usage.?based|pay.?as.?you|à l'usage|a l'usage|par requ|per request|cr[eé]dit|consumption|consommation/i],
+      "usage_based"
+    ) ??
+    matchKey([/licence unique|one.?time|achat unique|perpetual|perp[eé]tuel/i], "one_time") ??
+    matchKey([/hybride|hybrid|mixed|mixte|subscription.*usage|abonnement.*usage/i], "hybrid") ??
+    matchKey(
+      [/saas mensuel|abonnement|subscription|monthly|mensuel|recurring|r[eé]current/i],
+      "subscription"
+    );
+
+  if (matched) return matched;
+
+  if (/gratuit|free\b|\$0|0€|0 \€/i.test(pricesText)) {
+    return { key: "freemium", label: raw || MONETIZATION_LABELS.freemium };
+  }
+
+  if (raw) return { key: "other", label: raw };
+
+  return { key: "subscription", label: MONETIZATION_LABELS.subscription };
+}
+
+export function resolveMonetizationModel(
+  value: string | undefined,
+  competitorPrices?: string[]
+): { key: MonetizationModel; label: string } {
+  return normalizeMonetizationModel(value, competitorPrices);
+}
+
+export function getMonetizationModelLabel(
+  key: MonetizationModel,
+  labels: Record<MonetizationModel, string>,
+  fallback: string
+): string {
+  return labels[key] ?? fallback;
+}
+
+function detectArrCurrency(text: string): string {
+  if (text.includes("$")) return "$";
+  if (text.includes("£")) return "£";
+  return "€";
+}
+
+function parseRevenueAmount(text: string): number | null {
+  const lower = text.toLowerCase();
+  const normalized = text.replace(/\s/g, "").toLowerCase();
+  const match = normalized.match(/(\d+(?:[.,]\d+)?)\s*(k|m|b|md)?/i);
+  if (!match) return null;
+
+  let amount = parseFloat(match[1].replace(",", "."));
+  const unit = match[2]?.toLowerCase();
+
+  if (unit === "k") amount *= 1_000;
+  if (unit === "m") amount *= 1_000_000;
+  if (unit === "b" || unit === "md") amount *= 1_000_000_000;
+
+  if (/mrr|\/mois|monthly recurring|par mois/i.test(lower)) {
+    amount *= 12;
+  }
+
+  return amount > 0 ? amount : null;
+}
+
+function parseRevenueAmounts(text: string): number[] {
+  const amounts: number[] = [];
+  const segments = text.split(/[,;]|(?:\bet\b)|(?:\band\b)/i);
+
+  for (const segment of segments) {
+    const amount = parseRevenueAmount(segment);
+    if (amount) amounts.push(amount);
+  }
+
+  if (amounts.length === 0) {
+    const single = parseRevenueAmount(text);
+    if (single) amounts.push(single);
+  }
+
+  return amounts;
+}
+
+function formatArrValue(amount: number, currency: string): string {
+  if (amount >= 1_000_000_000) {
+    const billions = amount / 1_000_000_000;
+    return `${currency}${billions >= 10 ? Math.round(billions) : billions.toFixed(1).replace(/\.0$/, "")}Md`;
+  }
+  if (amount >= 1_000_000) {
+    const millions = amount / 1_000_000;
+    return `${currency}${millions >= 10 ? Math.round(millions) : millions.toFixed(1).replace(/\.0$/, "")}M`;
+  }
+  if (amount >= 1_000) {
+    return `${currency}${Math.round(amount / 1_000)}K`;
+  }
+  return `${currency}${Math.round(amount)}`;
+}
+
+function formatArrPotential(low: number, high: number, currency: string): string {
+  const roundedLow = Math.round(low);
+  const roundedHigh = Math.round(high);
+
+  if (roundedLow === roundedHigh) {
+    return `~${formatArrValue(roundedLow, currency)} ARR`;
+  }
+
+  return `~${formatArrValue(roundedLow, currency)}–${formatArrValue(roundedHigh, currency)} ARR`;
+}
+
+function parseMonthlyPriceMidpoint(willingnessToPay: string): number | null {
+  const amounts = parseAmounts(willingnessToPay).filter((price) => price > 0);
+  if (amounts.length === 0) return null;
+
+  const low = Math.min(...amounts);
+  const high = Math.max(...amounts);
+  return (low + high) / 2;
+}
+
+function normalizeArrPotentialLabel(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === "—") return trimmed;
+
+  const currency = detectArrCurrency(trimmed);
+  const amounts = parseRevenueAmounts(trimmed);
+
+  if (amounts.length === 0) {
+    return /arr|revenu|revenue|annual/i.test(trimmed) ? trimmed : `${trimmed} ARR`;
+  }
+
+  const low = Math.min(...amounts);
+  const high = Math.max(...amounts);
+
+  if (high / Math.max(low, 1) > 8) {
+    const geoMean = Math.sqrt(low * high);
+    return formatArrPotential(geoMean * 0.65, geoMean * 1.35, currency);
+  }
+
+  return formatArrPotential(low, high, currency);
+}
+
+export function resolveEstimatedArrPotential(
+  estimate: string | undefined,
+  options?: {
+    opportunityScore?: number;
+    willingnessToPay?: string;
+    searchVolume?: string;
+    competitorArrs?: string[];
+    domain?: string;
+  }
+): string {
+  if (estimate?.trim()) {
+    return normalizeArrPotentialLabel(estimate);
+  }
+
+  const {
+    opportunityScore = 50,
+    willingnessToPay = "",
+    searchVolume = "",
+    competitorArrs = [],
+    domain = "",
+  } = options ?? {};
+
+  const currency = detectArrCurrency(
+    [...competitorArrs, willingnessToPay, searchVolume].join(" ")
+  );
+
+  const competitorAmounts = competitorArrs
+    .flatMap((arr) => parseRevenueAmounts(arr))
+    .filter((amount) => amount > 0)
+    .sort((a, b) => a - b);
+
+  if (competitorAmounts.length > 0) {
+    const median = competitorAmounts[Math.floor(competitorAmounts.length / 2)];
+    const share = 0.0015 + (opportunityScore / 100) * 0.006;
+    const target = median * share;
+    return formatArrPotential(target * 0.55, target * 1.45, currency);
+  }
+
+  const searches = parseSearchVolumeCount(searchVolume);
+  const monthlyPrice = parseMonthlyPriceMidpoint(willingnessToPay);
+
+  if (searches && monthlyPrice) {
+    const conversionRate = 0.00008 + (opportunityScore / 100) * 0.00032;
+    const customers = searches * conversionRate;
+    const arr = customers * monthlyPrice * 12;
+    return formatArrPotential(arr * 0.65, arr * 1.35, currency);
+  }
+
+  const seed = hashDomain(domain) % 100;
+  const base = (opportunityScore / 100) ** 1.35 * 2_500_000;
+  const adjusted = base * (0.88 + seed / 200);
+  return formatArrPotential(adjusted * 0.45, adjusted * 1.05, currency);
 }

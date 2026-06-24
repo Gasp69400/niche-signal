@@ -51,6 +51,14 @@ export type GeographicFocus =
   | "us_europe"
   | "other";
 
+export type MonetizationModel =
+  | "subscription"
+  | "freemium"
+  | "usage_based"
+  | "one_time"
+  | "hybrid"
+  | "other";
+
 export interface AnalyzeReport {
   id?: string;
   domain: string;
@@ -66,6 +74,9 @@ export interface AnalyzeReport {
   geographicFocusKey: GeographicFocus;
   searchVolume: string;
   painLevel: number;
+  monetizationModel: string;
+  monetizationModelKey: MonetizationModel;
+  estimatedArrPotential: string;
   painPoints: PainPoint[];
   competitors: Competitor[];
   verdict: string;

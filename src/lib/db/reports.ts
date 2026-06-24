@@ -2,6 +2,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import {
   normalizeGeographicFocus,
   normalizeMarketTrendDirection,
+  resolveEstimatedArrPotential,
+  resolveMonetizationModel,
   resolvePainLevel,
   resolveSearchVolume,
   resolveWillingnessToPayEstimate,
@@ -40,6 +42,20 @@ function mapRowToSummary(row: ReportRow): ReportSummary {
 function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { id: string; createdAt: string } {
   const competitorPrices = stored.competitors?.map((c) => c.price) ?? [];
   const geo = normalizeGeographicFocus(stored.geographicFocus);
+  const willingnessToPayEstimate = resolveWillingnessToPayEstimate(
+    stored.willingnessToPayEstimate,
+    stored.persona?.willingnessToPay,
+    competitorPrices
+  );
+  const searchVolume = resolveSearchVolume(stored.searchVolume, {
+    monthlyInterest: stored.marketTrend?.data?.map((point) => point.interest),
+    opportunityScore: stored.opportunityScore,
+    domain: row.domain,
+  });
+  const monetization = resolveMonetizationModel(
+    stored.monetizationModel,
+    competitorPrices
+  );
 
   return {
     ...stored,
@@ -47,19 +63,11 @@ function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { 
     domain: row.domain,
     createdAt: row.created_at,
     isFavorite: row.is_favorite ?? false,
-    willingnessToPayEstimate: resolveWillingnessToPayEstimate(
-      stored.willingnessToPayEstimate,
-      stored.persona?.willingnessToPay,
-      competitorPrices
-    ),
+    willingnessToPayEstimate,
     persona: stored.persona
       ? {
           ...stored.persona,
-          willingnessToPay: resolveWillingnessToPayEstimate(
-            stored.willingnessToPayEstimate,
-            stored.persona.willingnessToPay,
-            competitorPrices
-          ),
+          willingnessToPay: willingnessToPayEstimate,
         }
       : stored.persona,
     marketTrendDirection:
@@ -67,12 +75,17 @@ function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { 
       normalizeMarketTrendDirection(undefined, stored.trend),
     geographicFocus: stored.geographicFocus ?? geo.label,
     geographicFocusKey: stored.geographicFocusKey ?? geo.key,
-    searchVolume: resolveSearchVolume(stored.searchVolume, {
-      monthlyInterest: stored.marketTrend?.data?.map((point) => point.interest),
+    searchVolume,
+    painLevel: resolvePainLevel(stored.painLevel, stored.painPoints),
+    monetizationModel: monetization.label,
+    monetizationModelKey: monetization.key,
+    estimatedArrPotential: resolveEstimatedArrPotential(stored.estimatedArrPotential, {
       opportunityScore: stored.opportunityScore,
+      willingnessToPay: willingnessToPayEstimate,
+      searchVolume,
+      competitorArrs: stored.competitors?.map((competitor) => competitor.arrMrrEstimate) ?? [],
       domain: row.domain,
     }),
-    painLevel: resolvePainLevel(stored.painLevel, stored.painPoints),
   };
 }
 
@@ -96,6 +109,9 @@ function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt
     geographicFocusKey: "other",
     searchVolume: "—",
     painLevel: 5,
+    monetizationModel: "SaaS mensuel",
+    monetizationModelKey: "subscription",
+    estimatedArrPotential: "—",
     painPoints: [],
     competitors: [],
     verdict: "",

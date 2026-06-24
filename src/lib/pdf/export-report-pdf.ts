@@ -143,6 +143,8 @@ function drawCoverPage(
     [labels.buildDifficulty, report.buildDifficulty],
     [labels.searchVolume, report.searchVolume],
     [labels.painLevel, formatPainLevel(report.painLevel)],
+    [labels.monetizationModel, report.monetizationModel],
+    [labels.estimatedArrPotential, report.estimatedArrPotential],
     [labels.willingnessToPayEstimate, report.willingnessToPayEstimate],
     [labels.marketTrendLabel, trendDirectionLabel],
     [labels.geographicFocus, report.geographicFocus],
@@ -306,6 +308,8 @@ export async function exportReportPdf(
   const summaryLines = [
     `${labels.searchVolume}: ${report.searchVolume}`,
     `${labels.painLevel}: ${formatPainLevel(report.painLevel)}`,
+    `${labels.monetizationModel}: ${report.monetizationModel}`,
+    `${labels.estimatedArrPotential}: ${report.estimatedArrPotential}`,
     `${labels.willingnessToPayEstimate}: ${report.willingnessToPayEstimate}`,
     `${labels.marketTrendLabel}: ${trendDirectionLabel} (${report.trendPercent})`,
     `${labels.geographicFocus}: ${report.geographicFocus}`,

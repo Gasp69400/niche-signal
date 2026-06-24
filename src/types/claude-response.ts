@@ -43,6 +43,8 @@ export interface ClaudeAnalyzeResponse {
   geographicFocus: string;
   searchVolume: string;
   painLevel: number;
+  monetizationModel: string;
+  estimatedArrPotential: string;
   monthlyInterest?: number[];
   radar?: ClaudeRadarDimension[];
   painPoints: ClaudePainPoint[];

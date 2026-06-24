@@ -17,6 +17,8 @@ export interface ReportPdfLabels {
   geographicFocus: string;
   searchVolume: string;
   painLevel: string;
+  monetizationModel: string;
+  estimatedArrPotential: string;
   trendGrowing: string;
   trendStable: string;
   trendDeclining: string;
@@ -63,6 +65,8 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     geographicFocus: "Zone géographique",
     searchVolume: "Volume de recherche Google",
     painLevel: "Urgence du problème",
+    monetizationModel: "Modèle de monétisation",
+    estimatedArrPotential: "ARR potentiel estimé",
     trendGrowing: "En croissance",
     trendStable: "Stable",
     trendDeclining: "En déclin",
@@ -107,6 +111,8 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     geographicFocus: "Geographic focus",
     searchVolume: "Estimated Google search volume",
     painLevel: "Problem urgency",
+    monetizationModel: "Monetization model",
+    estimatedArrPotential: "Estimated ARR potential",
     trendGrowing: "Growing",
     trendStable: "Stable",
     trendDeclining: "Declining",

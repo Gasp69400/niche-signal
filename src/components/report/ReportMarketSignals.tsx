@@ -1,8 +1,11 @@
 "use client";
 
 import { useI18n } from "@/contexts/I18nContext";
-import { formatPainLevel } from "@/lib/reports/market-signals";
-import type { AnalyzeReport, MarketTrendDirection } from "@/types/market-report";
+import {
+  formatPainLevel,
+  getMonetizationModelLabel,
+} from "@/lib/reports/market-signals";
+import type { AnalyzeReport, MarketTrendDirection, MonetizationModel } from "@/types/market-report";
 
 const TREND_STYLES: Record<MarketTrendDirection, { dot: string }> = {
   growing: { dot: "bg-emerald-400" },
@@ -50,8 +53,23 @@ export function ReportMarketSignals({ report }: { report: AnalyzeReport }) {
         ? s.trendDeclining
         : s.trendStable;
 
+  const modelLabels: Record<MonetizationModel, string> = {
+    subscription: s.modelSubscription,
+    freemium: s.modelFreemium,
+    usage_based: s.modelUsageBased,
+    one_time: s.modelOneTime,
+    hybrid: s.modelHybrid,
+    other: s.modelOther,
+  };
+
+  const monetizationLabel = getMonetizationModelLabel(
+    report.monetizationModelKey,
+    modelLabels,
+    report.monetizationModel
+  );
+
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <SignalCard label={s.searchVolume} value={report.searchVolume} />
       <SignalCard label={s.painLevel} value={formatPainLevel(report.painLevel)}>
         <div className="flex h-2 w-12 shrink-0 overflow-hidden rounded-full bg-white/10">
@@ -61,6 +79,8 @@ export function ReportMarketSignals({ report }: { report: AnalyzeReport }) {
           />
         </div>
       </SignalCard>
+      <SignalCard label={s.monetizationModel} value={monetizationLabel} />
+      <SignalCard label={s.estimatedArrPotential} value={report.estimatedArrPotential} />
       <SignalCard label={s.willingnessToPay} value={report.willingnessToPayEstimate} />
       <SignalCard label={s.marketTrend} value={trendLabel}>
         <span className={`h-2 w-2 shrink-0 rounded-full ${trendStyle.dot}`} />

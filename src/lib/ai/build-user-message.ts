@@ -13,6 +13,8 @@ CRITICAL rules for THIS specific niche:
 - geographicFocus must match where competitors operate and where buyers are (regions in competitors[])
 - searchVolume must estimate realistic monthly Google search demand for "${domain}" in its primary geography (e.g. ~8K/mois, ~120K/mois)
 - painLevel (1-10) must reflect how urgent the core problem is for the buyer — align with painPoints[] scores
+- monetizationModel must reflect how competitors in "${domain}" actually monetize (SaaS mensuel, Freemium, Usage-based…)
+- estimatedArrPotential must estimate realistic ARR for a new focused entrant in "${domain}" (e.g. ~€800K–€2.5M ARR)
 
 Return ONLY the JSON object.`;
 }

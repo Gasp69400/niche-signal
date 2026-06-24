@@ -47,6 +47,14 @@ export interface Dictionary {
       geographicFocus: string;
       searchVolume: string;
       painLevel: string;
+      monetizationModel: string;
+      estimatedArrPotential: string;
+      modelSubscription: string;
+      modelFreemium: string;
+      modelUsageBased: string;
+      modelOneTime: string;
+      modelHybrid: string;
+      modelOther: string;
       trendGrowing: string;
       trendStable: string;
       trendDeclining: string;

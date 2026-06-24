@@ -3,6 +3,8 @@ import { escapeGenericScore, hashDomain } from "@/lib/ai/response-quality";
 import {
   normalizeGeographicFocus,
   normalizeMarketTrendDirection,
+  resolveEstimatedArrPotential,
+  resolveMonetizationModel,
   resolvePainLevel,
   resolveSearchVolume,
   resolveWillingnessToPayEstimate,
@@ -159,6 +161,20 @@ export function mapClaudeResponse(
     label: point.label,
     intensity: clamp(Math.round(point.score), 0, 100),
   }));
+  const willingnessToPayEstimate = resolveWillingnessToPayEstimate(
+    response.willingnessToPayEstimate,
+    response.persona.willingness,
+    competitorPrices
+  );
+  const searchVolume = resolveSearchVolume(response.searchVolume, {
+    monthlyInterest: response.monthlyInterest,
+    opportunityScore: response.opportunityScore,
+    domain: searchedDomain,
+  });
+  const monetization = resolveMonetizationModel(
+    response.monetizationModel,
+    competitorPrices
+  );
 
   return {
     domain: response.domain || searchedDomain,
@@ -171,20 +187,21 @@ export function mapClaudeResponse(
     buildDifficulty: response.buildDifficulty,
     trend: response.trend,
     trendPercent: response.trendPercent,
-    willingnessToPayEstimate: resolveWillingnessToPayEstimate(
-      response.willingnessToPayEstimate,
-      response.persona.willingness,
-      competitorPrices
-    ),
+    willingnessToPayEstimate,
     marketTrendDirection,
     geographicFocus: geo.label,
     geographicFocusKey: geo.key,
-    searchVolume: resolveSearchVolume(response.searchVolume, {
-      monthlyInterest: response.monthlyInterest,
+    searchVolume,
+    painLevel: resolvePainLevel(response.painLevel, painPoints),
+    monetizationModel: monetization.label,
+    monetizationModelKey: monetization.key,
+    estimatedArrPotential: resolveEstimatedArrPotential(response.estimatedArrPotential, {
       opportunityScore: response.opportunityScore,
+      willingnessToPay: willingnessToPayEstimate,
+      searchVolume,
+      competitorArrs: response.competitors.map((competitor) => competitor.arr),
       domain: searchedDomain,
     }),
-    painLevel: resolvePainLevel(response.painLevel, painPoints),
     painPoints,
     competitors: response.competitors.map((competitor) => ({
       name: competitor.name,
@@ -201,11 +218,7 @@ export function mapClaudeResponse(
       role: response.persona.role,
       frustration: response.persona.frustration,
       currentTool: response.persona.currentTool,
-      willingnessToPay: resolveWillingnessToPayEstimate(
-        response.willingnessToPayEstimate,
-        response.persona.willingness,
-        competitorPrices
-      ),
+      willingnessToPay: willingnessToPayEstimate,
       whereToFind: response.persona.whereToFind,
     },
     positioning: {
