@@ -47,6 +47,14 @@ export const fr: Dictionary = {
     linkCopied: "Lien copié !",
     save: "Sauvegarder",
     savePro: "Réservé au plan Pro",
+    signals: {
+      willingnessToPay: "Prix accepté (estimation)",
+      marketTrend: "Dynamique marché",
+      geographicFocus: "Zone géographique",
+      trendGrowing: "En croissance",
+      trendStable: "Stable",
+      trendDeclining: "En déclin",
+    },
   },
   hero: {
     badge: "Live · 10 000+ SaaS analysés",

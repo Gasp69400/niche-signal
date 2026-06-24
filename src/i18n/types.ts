@@ -41,6 +41,14 @@ export interface Dictionary {
     linkCopied: string;
     save: string;
     savePro: string;
+    signals: {
+      willingnessToPay: string;
+      marketTrend: string;
+      geographicFocus: string;
+      trendGrowing: string;
+      trendStable: string;
+      trendDeclining: string;
+    };
   };
   hero: {
     badge: string;

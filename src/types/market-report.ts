@@ -41,6 +41,16 @@ export interface SimilarNiche {
   opportunityScore: number;
 }
 
+export type MarketTrendDirection = "growing" | "stable" | "declining";
+
+export type GeographicFocus =
+  | "global"
+  | "europe"
+  | "us"
+  | "france"
+  | "us_europe"
+  | "other";
+
 export interface AnalyzeReport {
   id?: string;
   domain: string;
@@ -50,6 +60,10 @@ export interface AnalyzeReport {
   buildDifficulty: string;
   trend: string;
   trendPercent: string;
+  willingnessToPayEstimate: string;
+  marketTrendDirection: MarketTrendDirection;
+  geographicFocus: string;
+  geographicFocusKey: GeographicFocus;
   painPoints: PainPoint[];
   competitors: Competitor[];
   verdict: string;

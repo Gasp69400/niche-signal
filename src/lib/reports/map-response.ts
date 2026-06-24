@@ -1,5 +1,10 @@
 import type { ClaudeAnalyzeResponse } from "@/types/claude-response";
 import { escapeGenericScore, hashDomain } from "@/lib/ai/response-quality";
+import {
+  normalizeGeographicFocus,
+  normalizeMarketTrendDirection,
+  resolveWillingnessToPayEstimate,
+} from "@/lib/reports/market-signals";
 import type { AnalyzeReport, MarketTrendPoint, RadarDimension } from "@/types/market-report";
 
 const MONTHS = [
@@ -142,6 +147,12 @@ export function mapClaudeResponse(
   searchedDomain: string
 ): AnalyzeReport {
   const marketTrend = buildMarketTrend(response, searchedDomain);
+  const competitorPrices = response.competitors.map((c) => c.price);
+  const geo = normalizeGeographicFocus(response.geographicFocus);
+  const marketTrendDirection = normalizeMarketTrendDirection(
+    response.marketTrendDirection,
+    response.trend
+  );
 
   return {
     domain: response.domain || searchedDomain,
@@ -154,6 +165,14 @@ export function mapClaudeResponse(
     buildDifficulty: response.buildDifficulty,
     trend: response.trend,
     trendPercent: response.trendPercent,
+    willingnessToPayEstimate: resolveWillingnessToPayEstimate(
+      response.willingnessToPayEstimate,
+      response.persona.willingness,
+      competitorPrices
+    ),
+    marketTrendDirection,
+    geographicFocus: geo.label,
+    geographicFocusKey: geo.key,
     painPoints: response.painPoints.map((point) => ({
       label: point.label,
       intensity: clamp(Math.round(point.score), 0, 100),
@@ -173,7 +192,11 @@ export function mapClaudeResponse(
       role: response.persona.role,
       frustration: response.persona.frustration,
       currentTool: response.persona.currentTool,
-      willingnessToPay: response.persona.willingness,
+      willingnessToPay: resolveWillingnessToPayEstimate(
+        response.willingnessToPayEstimate,
+        response.persona.willingness,
+        competitorPrices
+      ),
       whereToFind: response.persona.whereToFind,
     },
     positioning: {

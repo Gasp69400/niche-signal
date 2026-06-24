@@ -12,6 +12,12 @@ export interface ReportPdfLabels {
   marketSize: string;
   competition: string;
   buildDifficulty: string;
+  willingnessToPayEstimate: string;
+  marketTrendLabel: string;
+  geographicFocus: string;
+  trendGrowing: string;
+  trendStable: string;
+  trendDeclining: string;
   marketTrend: string;
   sixMonthChange: string;
   radar: string;
@@ -50,6 +56,12 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     marketSize: "Taille du marché",
     competition: "Concurrence",
     buildDifficulty: "Difficulté de build",
+    willingnessToPayEstimate: "Prix accepté (estimation)",
+    marketTrendLabel: "Dynamique marché",
+    geographicFocus: "Zone géographique",
+    trendGrowing: "En croissance",
+    trendStable: "Stable",
+    trendDeclining: "En déclin",
     marketTrend: "Dynamique de marché",
     sixMonthChange: "Variation 6 mois",
     radar: "Dimensions stratégiques",
@@ -86,6 +98,12 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     marketSize: "Market size",
     competition: "Competition",
     buildDifficulty: "Build difficulty",
+    willingnessToPayEstimate: "Willingness to pay",
+    marketTrendLabel: "Market momentum",
+    geographicFocus: "Geographic focus",
+    trendGrowing: "Growing",
+    trendStable: "Stable",
+    trendDeclining: "Declining",
     marketTrend: "Market dynamics",
     sixMonthChange: "6-month change",
     radar: "Strategic dimensions",

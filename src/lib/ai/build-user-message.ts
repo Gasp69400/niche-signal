@@ -8,6 +8,9 @@ CRITICAL rules for THIS specific niche:
 - Use the full spectrum: a saturated niche like email marketing should score differently from a narrow B2B vertical
 - radar scores must vary with one decimal (e.g. 6.3, 7.8) — never identical round numbers across different analyses
 - monthlyInterest must tell a story specific to this market's momentum
+- willingnessToPayEstimate must be derived from competitor price fields and typical pricing in "${domain}"
+- marketTrendDirection must align with trend/trendPercent and this niche's real momentum
+- geographicFocus must match where competitors operate and where buyers are (regions in competitors[])
 
 Return ONLY the JSON object.`;
 }

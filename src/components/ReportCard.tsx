@@ -5,6 +5,7 @@ import { MarketTrendChart } from "@/components/report/MarketTrendChart";
 import { OpportunityRadar } from "@/components/report/OpportunityRadar";
 import { PositioningAngle } from "@/components/report/PositioningAngle";
 import { ReportActionBar } from "@/components/report/ReportActionBar";
+import { ReportMarketSignals } from "@/components/report/ReportMarketSignals";
 import { ReportSection } from "@/components/report/ReportSection";
 import { SimilarNiches } from "@/components/report/SimilarNiches";
 import { FavoriteButton } from "@/components/report/FavoriteButton";
@@ -109,6 +110,10 @@ export function ReportCard({ report, onAnalyzeNiche, onFavoriteChange }: ReportC
           <MetricCard label="Concurrence" value={report.competition} />
           <MetricCard label="Difficulté de build" value={report.buildDifficulty} />
         </div>
+
+        <div className="mt-4">
+          <ReportMarketSignals report={report} />
+        </div>
         <div id="report-metrics-end" className="h-px" aria-hidden="true" />
 
         <ReportSection label="Tendance du marché">
@@ -116,6 +121,7 @@ export function ReportCard({ report, onAnalyzeNiche, onFavoriteChange }: ReportC
             data={report.marketTrend.data}
             sixMonthChange={report.marketTrend.sixMonthChange}
             trend={report.marketTrend.trend}
+            marketTrendDirection={report.marketTrendDirection}
           />
         </ReportSection>
 

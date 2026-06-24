@@ -38,6 +38,9 @@ export interface ClaudeAnalyzeResponse {
   buildDifficulty: string;
   trend: string;
   trendPercent: string;
+  willingnessToPayEstimate: string;
+  marketTrendDirection: "En croissance" | "Stable" | "En déclin";
+  geographicFocus: string;
   monthlyInterest?: number[];
   radar?: ClaudeRadarDimension[];
   painPoints: ClaudePainPoint[];

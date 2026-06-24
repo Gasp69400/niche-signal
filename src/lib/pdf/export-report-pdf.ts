@@ -128,27 +128,40 @@ function drawCoverPage(
   doc.setTextColor(130, 135, 145);
   doc.text("/100", scoreX + 19, scoreY + 31, { align: "center" });
 
-  const metricsY = 175;
+  const metricsY = 168;
+  const trendDirectionLabel =
+    report.marketTrendDirection === "growing"
+      ? labels.trendGrowing
+      : report.marketTrendDirection === "declining"
+        ? labels.trendDeclining
+        : labels.trendStable;
+
   const metrics = [
     [labels.marketSize, report.marketSize],
     [labels.competition, report.competition],
     [labels.buildDifficulty, report.buildDifficulty],
+    [labels.willingnessToPayEstimate, report.willingnessToPayEstimate],
+    [labels.marketTrendLabel, trendDirectionLabel],
+    [labels.geographicFocus, report.geographicFocus],
   ] as const;
   const colW = contentWidth() / 3 - 2;
   metrics.forEach(([label, value], i) => {
-    const x = PDF.margin + i * (colW + 3);
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const x = PDF.margin + col * (colW + 3);
+    const y = metricsY + row * 32;
     doc.setFillColor(18, 20, 28);
     doc.setDrawColor(45, 50, 62);
-    doc.roundedRect(x, metricsY, colW, 28, 2, 2, "FD");
+    doc.roundedRect(x, y, colW, 26, 2, 2, "FD");
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7);
     doc.setTextColor(130, 135, 145);
-    doc.text(label.toUpperCase(), x + 4, metricsY + 8);
+    doc.text(label.toUpperCase(), x + 4, y + 8);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
+    doc.setFontSize(9.5);
     doc.setTextColor(PDF.white.r, PDF.white.g, PDF.white.b);
     const valLines = doc.splitTextToSize(String(value), colW - 8) as string[];
-    doc.text(valLines[0] ?? "—", x + 4, metricsY + 18);
+    doc.text(valLines[0] ?? "—", x + 4, y + 17);
   });
 
   doc.setFont("helvetica", "normal");
@@ -279,6 +292,25 @@ export async function exportReportPdf(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.setTextColor(PDF.ink.r, PDF.ink.g, PDF.ink.b);
+
+  const trendDirectionLabel =
+    report.marketTrendDirection === "growing"
+      ? labels.trendGrowing
+      : report.marketTrendDirection === "declining"
+        ? labels.trendDeclining
+        : labels.trendStable;
+
+  const summaryLines = [
+    `${labels.willingnessToPayEstimate}: ${report.willingnessToPayEstimate}`,
+    `${labels.marketTrendLabel}: ${trendDirectionLabel} (${report.trendPercent})`,
+    `${labels.geographicFocus}: ${report.geographicFocus}`,
+  ];
+  summaryLines.forEach((line) => {
+    y = wrapText(doc, line, PDF.margin, y, contentWidth());
+    y += 2;
+  });
+  y += 4;
+
   y = wrapText(
     doc,
     `${report.marketTrend.trend}. ${labels.sixMonthChange}: ${report.marketTrend.sixMonthChange > 0 ? "+" : ""}${report.marketTrend.sixMonthChange}%.`,

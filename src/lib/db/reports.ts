@@ -1,4 +1,9 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import {
+  normalizeGeographicFocus,
+  normalizeMarketTrendDirection,
+  resolveWillingnessToPayEstimate,
+} from "@/lib/reports/market-signals";
 import type { AnalyzeReport } from "@/types/market-report";
 import type { ReportSummary } from "@/types/report-summary";
 
@@ -30,15 +35,30 @@ function mapRowToSummary(row: ReportRow): ReportSummary {
   };
 }
 
+function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { id: string; createdAt: string } {
+  const competitorPrices = stored.competitors?.map((c) => c.price) ?? [];
+  const geo = normalizeGeographicFocus(stored.geographicFocus);
+
+  return {
+    ...stored,
+    id: row.id,
+    domain: row.domain,
+    createdAt: row.created_at,
+    isFavorite: row.is_favorite ?? false,
+    willingnessToPayEstimate:
+      stored.willingnessToPayEstimate ??
+      resolveWillingnessToPayEstimate(undefined, stored.persona?.willingnessToPay, competitorPrices),
+    marketTrendDirection:
+      stored.marketTrendDirection ??
+      normalizeMarketTrendDirection(undefined, stored.trend),
+    geographicFocus: stored.geographicFocus ?? geo.label,
+    geographicFocusKey: stored.geographicFocusKey ?? geo.key,
+  };
+}
+
 function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt: string } {
   if (row.data) {
-    return {
-      ...(row.data as AnalyzeReport),
-      id: row.id,
-      domain: row.domain,
-      createdAt: row.created_at,
-      isFavorite: row.is_favorite ?? false,
-    };
+    return enrichReport(row.data as AnalyzeReport, row);
   }
 
   return {
@@ -50,6 +70,10 @@ function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt
     buildDifficulty: "—",
     trend: "—",
     trendPercent: "—",
+    willingnessToPayEstimate: "—",
+    marketTrendDirection: "stable",
+    geographicFocus: "—",
+    geographicFocusKey: "other",
     painPoints: [],
     competitors: [],
     verdict: "",

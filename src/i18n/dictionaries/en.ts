@@ -47,6 +47,14 @@ export const en: Dictionary = {
     linkCopied: "Link copied!",
     save: "Save",
     savePro: "Pro plan required",
+    signals: {
+      willingnessToPay: "Willingness to pay",
+      marketTrend: "Market momentum",
+      geographicFocus: "Geographic focus",
+      trendGrowing: "Growing",
+      trendStable: "Stable",
+      trendDeclining: "Declining",
+    },
   },
   hero: {
     badge: "Live · 10,000+ SaaS analyzed",

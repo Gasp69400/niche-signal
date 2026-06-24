@@ -9,23 +9,50 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { MarketTrendPoint } from "@/types/market-report";
+import { useI18n } from "@/contexts/I18nContext";
+import type { MarketTrendDirection, MarketTrendPoint } from "@/types/market-report";
 
 interface MarketTrendChartProps {
   data: MarketTrendPoint[];
   sixMonthChange: number;
   trend?: string;
+  marketTrendDirection?: MarketTrendDirection;
 }
 
-export function MarketTrendChart({ data, sixMonthChange, trend }: MarketTrendChartProps) {
+const DIRECTION_BADGE: Record<
+  MarketTrendDirection,
+  string
+> = {
+  growing: "bg-emerald-500/15 text-emerald-400",
+  stable: "bg-amber-500/15 text-amber-400",
+  declining: "bg-red-500/15 text-red-400",
+};
+
+export function MarketTrendChart({
+  data,
+  sixMonthChange,
+  trend,
+  marketTrendDirection,
+}: MarketTrendChartProps) {
+  const { t } = useI18n();
   const trendingUp = sixMonthChange >= 0;
+  const direction = marketTrendDirection ?? (trendingUp ? "growing" : "declining");
+  const directionLabel =
+    direction === "growing"
+      ? t.report.signals.trendGrowing
+      : direction === "declining"
+        ? t.report.signals.trendDeclining
+        : t.report.signals.trendStable;
 
   return (
     <div className="glass-card rounded-2xl p-6">
-      <div className="mb-4 flex items-center justify-between gap-3">
-        {trend && (
-          <span className="text-xs font-medium text-muted">{trend}</span>
-        )}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          {trend && <span className="text-xs font-medium text-muted">{trend}</span>}
+          <span className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${DIRECTION_BADGE[direction]}`}>
+            {directionLabel}
+          </span>
+        </div>
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold ${
             trendingUp

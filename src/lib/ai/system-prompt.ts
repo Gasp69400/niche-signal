@@ -15,6 +15,9 @@ The JSON must follow this exact structure:
   "buildDifficulty": "<Faible | Moyenne | Élevée>",
   "trend": "<En hausse | Stable | En baisse>",
   "trendPercent": "<like +34% or -12% over 6 months>",
+  "marketTrendDirection": "<En croissance | Stable | En déclin — overall market momentum for this niche>",
+  "geographicFocus": "<Global | Europe | US | France | US + Europe — primary demand geography, based on competitors and buyers>",
+  "willingnessToPayEstimate": "<realistic monthly price range users would pay, grounded in competitor pricing and persona segment, e.g. €19–39/mois/utilisateur>",
   "monthlyInterest": [<12 numbers 0-100, Jan to Dec, reflecting this niche's search interest evolution>],
   "radar": [
     { "dimension": "Taille du marché", "score": <0-10 with one decimal> },
@@ -56,4 +59,6 @@ The JSON must follow this exact structure:
     { "name": "<related niche>", "score": <0-100> }
   ],
   "verdict": "<2-3 sentence market verdict specific to this domain>"
-}`;
+}
+
+Ground every estimate in real market signals: competitor pricing, known SaaS benchmarks, and geography of listed competitors. willingnessToPayEstimate must reflect actual price points in competitors[] — not a generic range.`;
