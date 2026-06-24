@@ -48,7 +48,7 @@ export const en: Dictionary = {
     save: "Save",
     savePro: "Pro plan required",
     signals: {
-      willingnessToPay: "Willingness to pay",
+      willingnessToPay: "Ideal price range",
       marketTrend: "Market momentum",
       geographicFocus: "Geographic focus",
       trendGrowing: "Growing",

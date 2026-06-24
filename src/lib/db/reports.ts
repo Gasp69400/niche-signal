@@ -45,9 +45,21 @@ function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { 
     domain: row.domain,
     createdAt: row.created_at,
     isFavorite: row.is_favorite ?? false,
-    willingnessToPayEstimate:
-      stored.willingnessToPayEstimate ??
-      resolveWillingnessToPayEstimate(undefined, stored.persona?.willingnessToPay, competitorPrices),
+    willingnessToPayEstimate: resolveWillingnessToPayEstimate(
+      stored.willingnessToPayEstimate,
+      stored.persona?.willingnessToPay,
+      competitorPrices
+    ),
+    persona: stored.persona
+      ? {
+          ...stored.persona,
+          willingnessToPay: resolveWillingnessToPayEstimate(
+            stored.willingnessToPayEstimate,
+            stored.persona.willingnessToPay,
+            competitorPrices
+          ),
+        }
+      : stored.persona,
     marketTrendDirection:
       stored.marketTrendDirection ??
       normalizeMarketTrendDirection(undefined, stored.trend),

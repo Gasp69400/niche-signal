@@ -48,7 +48,7 @@ export const fr: Dictionary = {
     save: "Sauvegarder",
     savePro: "Réservé au plan Pro",
     signals: {
-      willingnessToPay: "Prix accepté (estimation)",
+      willingnessToPay: "Fourchette idéale",
       marketTrend: "Dynamique marché",
       geographicFocus: "Zone géographique",
       trendGrowing: "En croissance",
