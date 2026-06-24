@@ -64,6 +64,8 @@ export interface AnalyzeReport {
   marketTrendDirection: MarketTrendDirection;
   geographicFocus: string;
   geographicFocusKey: GeographicFocus;
+  searchVolume: string;
+  painLevel: number;
   painPoints: PainPoint[];
   competitors: Competitor[];
   verdict: string;

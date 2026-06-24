@@ -51,6 +51,8 @@ export const fr: Dictionary = {
       willingnessToPay: "Fourchette idéale",
       marketTrend: "Dynamique marché",
       geographicFocus: "Zone géographique",
+      searchVolume: "Volume de recherche Google",
+      painLevel: "Urgence du problème",
       trendGrowing: "En croissance",
       trendStable: "Stable",
       trendDeclining: "En déclin",

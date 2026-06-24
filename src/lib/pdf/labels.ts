@@ -15,6 +15,8 @@ export interface ReportPdfLabels {
   willingnessToPayEstimate: string;
   marketTrendLabel: string;
   geographicFocus: string;
+  searchVolume: string;
+  painLevel: string;
   trendGrowing: string;
   trendStable: string;
   trendDeclining: string;
@@ -59,6 +61,8 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     willingnessToPayEstimate: "Fourchette idéale",
     marketTrendLabel: "Dynamique marché",
     geographicFocus: "Zone géographique",
+    searchVolume: "Volume de recherche Google",
+    painLevel: "Urgence du problème",
     trendGrowing: "En croissance",
     trendStable: "Stable",
     trendDeclining: "En déclin",
@@ -101,6 +105,8 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     willingnessToPayEstimate: "Ideal price range",
     marketTrendLabel: "Market momentum",
     geographicFocus: "Geographic focus",
+    searchVolume: "Estimated Google search volume",
+    painLevel: "Problem urgency",
     trendGrowing: "Growing",
     trendStable: "Stable",
     trendDeclining: "Declining",

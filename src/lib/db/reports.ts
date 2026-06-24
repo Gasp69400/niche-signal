@@ -2,6 +2,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import {
   normalizeGeographicFocus,
   normalizeMarketTrendDirection,
+  resolvePainLevel,
+  resolveSearchVolume,
   resolveWillingnessToPayEstimate,
 } from "@/lib/reports/market-signals";
 import type { AnalyzeReport } from "@/types/market-report";
@@ -65,6 +67,12 @@ function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { 
       normalizeMarketTrendDirection(undefined, stored.trend),
     geographicFocus: stored.geographicFocus ?? geo.label,
     geographicFocusKey: stored.geographicFocusKey ?? geo.key,
+    searchVolume: resolveSearchVolume(stored.searchVolume, {
+      monthlyInterest: stored.marketTrend?.data?.map((point) => point.interest),
+      opportunityScore: stored.opportunityScore,
+      domain: row.domain,
+    }),
+    painLevel: resolvePainLevel(stored.painLevel, stored.painPoints),
   };
 }
 
@@ -86,6 +94,8 @@ function mapRowToReport(row: ReportRow): AnalyzeReport & { id: string; createdAt
     marketTrendDirection: "stable",
     geographicFocus: "—",
     geographicFocusKey: "other",
+    searchVolume: "—",
+    painLevel: 5,
     painPoints: [],
     competitors: [],
     verdict: "",

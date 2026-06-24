@@ -1,16 +1,21 @@
 "use client";
 
 import { useI18n } from "@/contexts/I18nContext";
+import { formatPainLevel } from "@/lib/reports/market-signals";
 import type { AnalyzeReport, MarketTrendDirection } from "@/types/market-report";
 
-const TREND_STYLES: Record<
-  MarketTrendDirection,
-  { dot: string }
-> = {
+const TREND_STYLES: Record<MarketTrendDirection, { dot: string }> = {
   growing: { dot: "bg-emerald-400" },
   stable: { dot: "bg-amber-400" },
   declining: { dot: "bg-red-400" },
 };
+
+function painBarColor(level: number): string {
+  if (level >= 8) return "bg-red-400";
+  if (level >= 6) return "bg-orange-400";
+  if (level >= 4) return "bg-amber-400";
+  return "bg-emerald-400";
+}
 
 function SignalCard({
   label,
@@ -46,7 +51,16 @@ export function ReportMarketSignals({ report }: { report: AnalyzeReport }) {
         : s.trendStable;
 
   return (
-    <div className="grid gap-4 sm:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+      <SignalCard label={s.searchVolume} value={report.searchVolume} />
+      <SignalCard label={s.painLevel} value={formatPainLevel(report.painLevel)}>
+        <div className="flex h-2 w-12 shrink-0 overflow-hidden rounded-full bg-white/10">
+          <div
+            className={`h-full rounded-full ${painBarColor(report.painLevel)}`}
+            style={{ width: `${report.painLevel * 10}%` }}
+          />
+        </div>
+      </SignalCard>
       <SignalCard label={s.willingnessToPay} value={report.willingnessToPayEstimate} />
       <SignalCard label={s.marketTrend} value={trendLabel}>
         <span className={`h-2 w-2 shrink-0 rounded-full ${trendStyle.dot}`} />

@@ -17,6 +17,8 @@ The JSON must follow this exact structure:
   "trendPercent": "<like +34% or -12% over 6 months>",
   "marketTrendDirection": "<En croissance | Stable | En déclin — overall market momentum for this niche>",
   "geographicFocus": "<Global | Europe | US | France | US + Europe — primary demand geography, based on competitors and buyers>",
+  "searchVolume": "<estimated monthly Google search volume for this niche in primary geography, e.g. ~12K recherches/mois or ~45 000 recherches/mois — grounded in real keyword demand for this domain>",
+  "painLevel": <integer 1-10, how urgent/painful the core problem is for the target buyer — 10 = critical daily pain, 1 = mild inconvenience>,
   "willingnessToPayEstimate": "<fourchette idéale mensuelle (sweet spot) que la cible paierait pour un SaaS mid-market — PAS le min/max de tous les concurrents. Exclure freemium et plans enterprise. Fourchette max 2× (ex. €49–89/mois, jamais €19–299/mois)>",
   "monthlyInterest": [<12 numbers 0-100, Jan to Dec, reflecting this niche's search interest evolution>],
   "radar": [
@@ -61,4 +63,4 @@ The JSON must follow this exact structure:
   "verdict": "<2-3 sentence market verdict specific to this domain>"
 }
 
-Ground every estimate in real market signals: competitor pricing, known SaaS benchmarks, and geography of listed competitors. willingnessToPayEstimate must be the ideal mid-market sweet spot (median tier pricing), NOT a span from cheapest freemium to most expensive enterprise plan. Keep the range within 2× (e.g. €39–79/mois, not €19–299/mois). persona.willingness must match the same ideal range.`;
+Ground every estimate in real market signals: competitor pricing, known SaaS benchmarks, and geography of listed competitors. willingnessToPayEstimate must be the ideal mid-market sweet spot (median tier pricing), NOT a span from cheapest freemium to most expensive enterprise plan. Keep the range within 2× (e.g. €39–79/mois, not €19–299/mois). persona.willingness must match the same ideal range. searchVolume must reflect realistic Google keyword demand for this specific niche (not generic SaaS traffic). painLevel must align with painPoints[] intensity — if pains score high, painLevel should be 7-10.`;

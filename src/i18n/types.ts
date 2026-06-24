@@ -45,6 +45,8 @@ export interface Dictionary {
       willingnessToPay: string;
       marketTrend: string;
       geographicFocus: string;
+      searchVolume: string;
+      painLevel: string;
       trendGrowing: string;
       trendStable: string;
       trendDeclining: string;

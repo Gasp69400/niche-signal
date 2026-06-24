@@ -1,4 +1,5 @@
-import type { GeographicFocus, MarketTrendDirection } from "@/types/market-report";
+import type { GeographicFocus, MarketTrendDirection, PainPoint } from "@/types/market-report";
+import { hashDomain } from "@/lib/ai/response-quality";
 
 const MAX_RANGE_RATIO = 2;
 const MAX_RANGE_SPREAD = 80;
@@ -214,4 +215,98 @@ export function resolveWillingnessToPayEstimate(
   }
 
   return "—";
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function formatSearchVolume(count: number): string {
+  if (count >= 1_000_000) {
+    const millions = count / 1_000_000;
+    return `~${millions >= 10 ? Math.round(millions) : millions.toFixed(1)}M/mois`;
+  }
+  if (count >= 1_000) {
+    return `~${Math.round(count / 1_000)}K/mois`;
+  }
+  return `~${Math.round(count)}/mois`;
+}
+
+function parseSearchVolumeCount(value: string): number | null {
+  const normalized = value.replace(/\s/g, "").toLowerCase();
+  const match = normalized.match(/(\d+(?:[.,]\d+)?)\s*(k|m)?/i);
+  if (!match) return null;
+
+  let amount = parseFloat(match[1].replace(",", "."));
+  const unit = match[2]?.toLowerCase();
+  if (unit === "k") amount *= 1_000;
+  if (unit === "m") amount *= 1_000_000;
+
+  return amount > 0 ? amount : null;
+}
+
+function normalizeSearchVolumeLabel(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === "—") return trimmed;
+
+  const count = parseSearchVolumeCount(trimmed);
+  if (count) {
+    return formatSearchVolume(count);
+  }
+
+  if (/recherch|search|\/mois|\/month|monthly|mensuel/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return trimmed;
+}
+
+export function resolveSearchVolume(
+  searchVolume: string | undefined,
+  options?: {
+    monthlyInterest?: number[];
+    opportunityScore?: number;
+    domain?: string;
+  }
+): string {
+  if (searchVolume?.trim()) {
+    return normalizeSearchVolumeLabel(searchVolume);
+  }
+
+  const { monthlyInterest, opportunityScore = 50, domain = "" } = options ?? {};
+
+  if (monthlyInterest?.length) {
+    const avgInterest =
+      monthlyInterest.reduce((sum, value) => sum + value, 0) / monthlyInterest.length;
+    const seed = hashDomain(domain) % 100;
+    const base = Math.round((avgInterest / 100) ** 1.45 * 120_000);
+    const adjusted = Math.round(base * (0.88 + seed / 200));
+    return formatSearchVolume(Math.max(adjusted, 500));
+  }
+
+  const seed = hashDomain(domain) % 100;
+  const base = Math.round((opportunityScore / 100) ** 1.3 * 80_000);
+  const adjusted = Math.round(base * (0.9 + seed / 250));
+  return formatSearchVolume(Math.max(adjusted, 300));
+}
+
+export function resolvePainLevel(
+  painLevel: number | undefined,
+  painPoints?: Pick<PainPoint, "intensity">[]
+): number {
+  if (typeof painLevel === "number" && Number.isFinite(painLevel)) {
+    return clamp(Math.round(painLevel), 1, 10);
+  }
+
+  if (painPoints?.length) {
+    const avgIntensity =
+      painPoints.reduce((sum, point) => sum + point.intensity, 0) / painPoints.length;
+    return clamp(Math.round(avgIntensity / 10), 1, 10);
+  }
+
+  return 5;
+}
+
+export function formatPainLevel(painLevel: number): string {
+  return `${painLevel}/10`;
 }

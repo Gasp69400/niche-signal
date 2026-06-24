@@ -1,6 +1,7 @@
 import { jsPDF } from "jspdf";
 import type { Locale } from "@/i18n/config";
 import type { AnalyzeReport } from "@/types/market-report";
+import { formatPainLevel } from "@/lib/reports/market-signals";
 import { getReportPdfLabels } from "@/lib/pdf/labels";
 import { contentWidth, PDF } from "@/lib/pdf/theme";
 
@@ -140,6 +141,8 @@ function drawCoverPage(
     [labels.marketSize, report.marketSize],
     [labels.competition, report.competition],
     [labels.buildDifficulty, report.buildDifficulty],
+    [labels.searchVolume, report.searchVolume],
+    [labels.painLevel, formatPainLevel(report.painLevel)],
     [labels.willingnessToPayEstimate, report.willingnessToPayEstimate],
     [labels.marketTrendLabel, trendDirectionLabel],
     [labels.geographicFocus, report.geographicFocus],
@@ -301,6 +304,8 @@ export async function exportReportPdf(
         : labels.trendStable;
 
   const summaryLines = [
+    `${labels.searchVolume}: ${report.searchVolume}`,
+    `${labels.painLevel}: ${formatPainLevel(report.painLevel)}`,
     `${labels.willingnessToPayEstimate}: ${report.willingnessToPayEstimate}`,
     `${labels.marketTrendLabel}: ${trendDirectionLabel} (${report.trendPercent})`,
     `${labels.geographicFocus}: ${report.geographicFocus}`,

@@ -3,6 +3,8 @@ import { escapeGenericScore, hashDomain } from "@/lib/ai/response-quality";
 import {
   normalizeGeographicFocus,
   normalizeMarketTrendDirection,
+  resolvePainLevel,
+  resolveSearchVolume,
   resolveWillingnessToPayEstimate,
 } from "@/lib/reports/market-signals";
 import type { AnalyzeReport, MarketTrendPoint, RadarDimension } from "@/types/market-report";
@@ -153,6 +155,10 @@ export function mapClaudeResponse(
     response.marketTrendDirection,
     response.trend
   );
+  const painPoints = response.painPoints.map((point) => ({
+    label: point.label,
+    intensity: clamp(Math.round(point.score), 0, 100),
+  }));
 
   return {
     domain: response.domain || searchedDomain,
@@ -173,10 +179,13 @@ export function mapClaudeResponse(
     marketTrendDirection,
     geographicFocus: geo.label,
     geographicFocusKey: geo.key,
-    painPoints: response.painPoints.map((point) => ({
-      label: point.label,
-      intensity: clamp(Math.round(point.score), 0, 100),
-    })),
+    searchVolume: resolveSearchVolume(response.searchVolume, {
+      monthlyInterest: response.monthlyInterest,
+      opportunityScore: response.opportunityScore,
+      domain: searchedDomain,
+    }),
+    painLevel: resolvePainLevel(response.painLevel, painPoints),
+    painPoints,
     competitors: response.competitors.map((competitor) => ({
       name: competitor.name,
       arrMrrEstimate: competitor.arr,

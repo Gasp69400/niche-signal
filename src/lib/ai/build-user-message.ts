@@ -11,6 +11,8 @@ CRITICAL rules for THIS specific niche:
 - willingnessToPayEstimate must be the ideal mid-market price sweet spot for "${domain}" — exclude freemium and enterprise tiers, max 2× spread (e.g. €49–89/mois, never €19–299/mois)
 - marketTrendDirection must align with trend/trendPercent and this niche's real momentum
 - geographicFocus must match where competitors operate and where buyers are (regions in competitors[])
+- searchVolume must estimate realistic monthly Google search demand for "${domain}" in its primary geography (e.g. ~8K/mois, ~120K/mois)
+- painLevel (1-10) must reflect how urgent the core problem is for the buyer — align with painPoints[] scores
 
 Return ONLY the JSON object.`;
 }

@@ -51,6 +51,8 @@ export const en: Dictionary = {
       willingnessToPay: "Ideal price range",
       marketTrend: "Market momentum",
       geographicFocus: "Geographic focus",
+      searchVolume: "Estimated Google search volume",
+      painLevel: "Problem urgency",
       trendGrowing: "Growing",
       trendStable: "Stable",
       trendDeclining: "Declining",
