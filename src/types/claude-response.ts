@@ -5,6 +5,7 @@ export interface ClaudePainPoint {
 
 export interface ClaudeCompetitor {
   name: string;
+  website: string;
   arr: string;
   founded: number;
   rating: number;

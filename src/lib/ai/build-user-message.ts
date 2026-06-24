@@ -15,6 +15,7 @@ CRITICAL rules for THIS specific niche:
 - painLevel (1-10) must reflect how urgent the core problem is for the buyer — align with painPoints[] scores
 - monetizationModel must reflect how competitors in "${domain}" actually monetize (SaaS mensuel, Freemium, Usage-based…)
 - estimatedArrPotential must estimate realistic ARR for a new focused entrant in "${domain}" (e.g. ~€800K–€2.5M ARR)
+- each competitor must include its real official website URL in website (https://…)
 
 Return ONLY the JSON object.`;
 }

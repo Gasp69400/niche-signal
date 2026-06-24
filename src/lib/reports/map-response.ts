@@ -9,6 +9,7 @@ import {
   resolveSearchVolume,
   resolveWillingnessToPayEstimate,
 } from "@/lib/reports/market-signals";
+import { enrichCompetitorWebsite } from "@/lib/reports/competitor-links";
 import type { AnalyzeReport, MarketTrendPoint, RadarDimension } from "@/types/market-report";
 
 const MONTHS = [
@@ -203,14 +204,17 @@ export function mapClaudeResponse(
       domain: searchedDomain,
     }),
     painPoints,
-    competitors: response.competitors.map((competitor) => ({
-      name: competitor.name,
-      arrMrrEstimate: competitor.arr,
-      foundedYear: competitor.founded,
-      rating: competitor.rating,
-      price: competitor.price,
-      region: competitor.region,
-    })),
+    competitors: response.competitors.map((competitor) =>
+      enrichCompetitorWebsite({
+        name: competitor.name,
+        website: competitor.website,
+        arrMrrEstimate: competitor.arr,
+        foundedYear: competitor.founded,
+        rating: competitor.rating,
+        price: competitor.price,
+        region: competitor.region,
+      })
+    ),
     verdict: response.verdict,
     marketTrend,
     radar: buildRadar(response),

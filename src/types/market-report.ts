@@ -1,5 +1,6 @@
 export interface Competitor {
   name: string;
+  website: string;
   arrMrrEstimate: string;
   foundedYear: number;
   rating: number;

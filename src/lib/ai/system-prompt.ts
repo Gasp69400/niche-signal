@@ -41,6 +41,7 @@ The JSON must follow this exact structure:
   "competitors": [
     {
       "name": "<real SaaS name in this domain>",
+      "website": "<official homepage URL with https://, e.g. https://www.notion.so>",
       "arr": "<realistic ARR/MRR like $45M ARR or $120k MRR>",
       "founded": <year>,
       "rating": <3.5-5.0>,
@@ -65,4 +66,4 @@ The JSON must follow this exact structure:
   "verdict": "<2-3 sentence market verdict specific to this domain>"
 }
 
-Ground every estimate in real market signals: competitor pricing, known SaaS benchmarks, and geography of listed competitors. willingnessToPayEstimate must be the ideal mid-market sweet spot (median tier pricing), NOT a span from cheapest freemium to most expensive enterprise plan. Keep the range within 2× (e.g. €39–79/mois, not €19–299/mois). persona.willingness must match the same ideal range. searchVolume must reflect realistic Google keyword demand for this specific niche (not generic SaaS traffic). painLevel must align with painPoints[] intensity — if pains score high, painLevel should be 7-10. monetizationModel must match how competitors[] actually charge. estimatedArrPotential must be a realistic ARR range for a new focused player (typically 0.1–1% of incumbents' ARR or derived from pricing × reachable customers).`;
+Ground every estimate in real market signals: competitor pricing, known SaaS benchmarks, and geography of listed competitors. Each competitor must include its real official website URL in website (https://…). willingnessToPayEstimate must be the ideal mid-market sweet spot (median tier pricing), NOT a span from cheapest freemium to most expensive enterprise plan. Keep the range within 2× (e.g. €39–79/mois, not €19–299/mois). persona.willingness must match the same ideal range. searchVolume must reflect realistic Google keyword demand for this specific niche (not generic SaaS traffic). painLevel must align with painPoints[] intensity — if pains score high, painLevel should be 7-10. monetizationModel must match how competitors[] actually charge. estimatedArrPotential must be a realistic ARR range for a new focused player (typically 0.1–1% of incumbents' ARR or derived from pricing × reachable customers).`;

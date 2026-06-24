@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { enrichCompetitorWebsite } from "@/lib/reports/competitor-links";
 import {
   normalizeGeographicFocus,
   normalizeMarketTrendDirection,
@@ -86,6 +87,7 @@ function enrichReport(stored: AnalyzeReport, row: ReportRow): AnalyzeReport & { 
       competitorArrs: stored.competitors?.map((competitor) => competitor.arrMrrEstimate) ?? [],
       domain: row.domain,
     }),
+    competitors: stored.competitors?.map((competitor) => enrichCompetitorWebsite(competitor)) ?? [],
   };
 }
 
