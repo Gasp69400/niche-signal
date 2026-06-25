@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/config";
+import { BRAND_NAME } from "@/lib/brand";
 
 export interface ReportPdfLabels {
   brand: string;
@@ -49,7 +50,7 @@ export interface ReportPdfLabels {
 
 const LABELS: Record<Locale, ReportPdfLabels> = {
   fr: {
-    brand: "NicheSignal",
+    brand: BRAND_NAME,
     tagline: "Intelligence marché SaaS",
     reportTitle: "Dossier d'opportunité",
     reportSubtitle: "Analyse concurrentielle & scoring de niche",
@@ -95,7 +96,7 @@ const LABELS: Record<Locale, ReportPdfLabels> = {
     confidential: "Confidentiel",
   },
   en: {
-    brand: "NicheSignal",
+    brand: BRAND_NAME,
     tagline: "SaaS market intelligence",
     reportTitle: "Opportunity brief",
     reportSubtitle: "Competitive landscape & niche scoring",

@@ -1,12 +1,12 @@
-# Connecter NicheSignal (GitHub) à Supabase
+# Connecter Niche Founder (GitHub) à Supabase
 
 Ce guide relie le dépôt GitHub au projet Supabase pour que les migrations SQL se déploient automatiquement.
 
 ## ⚠️ Projet 100 % séparé de Slidy
 
-**NicheSignal** et **Slidy** sont deux produits distincts. Ne réutilise **jamais** :
+**Niche Founder** et **Slidy** sont deux produits distincts. Ne réutilise **jamais** :
 
-| | NicheSignal ✅ | Slidy ❌ (ne pas utiliser) |
+| | Niche Founder ✅ | Slidy ❌ (ne pas utiliser) |
 |--|----------------|---------------------------|
 | **Dossier local** | `saas2/` | autre dossier |
 | **Repo GitHub** | `niche-signal` (nouveau repo) | repo Slidy existant |
@@ -127,7 +127,7 @@ Dans **GitHub → ton repo → Settings → Secrets and variables → Actions**,
 | **Site URL** | `http://localhost:3002` |
 | **Redirect URLs** | `http://localhost:3002/**` |
 
-> NicheSignal tourne sur le port **3002**, pas 3000 (Slidy).
+> Niche Founder tourne sur le port **3002**, pas 3000 (Slidy).
 
 ## 9. Vérifier que tout fonctionne
 

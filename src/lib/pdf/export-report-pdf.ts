@@ -452,6 +452,6 @@ export async function exportReportPdf(
   doc.setTextColor(100, 105, 115);
   doc.text(`${labels.reference} ${refId(report)}`, PDF.pageW - PDF.margin, PDF.pageH - 16, { align: "right" });
 
-  const filename = `NicheSignal-${slugify(report.domain)}-${new Date().toISOString().slice(0, 10)}.pdf`;
+  const filename = `NicheFounder-${slugify(report.domain)}-${new Date().toISOString().slice(0, 10)}.pdf`;
   doc.save(filename);
 }

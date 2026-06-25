@@ -1,4 +1,4 @@
-# NicheSignal only — secrets must point to the niche-signal Supabase project, NOT Slidy
+# Niche Founder only — secrets must point to the niche-signal Supabase project, NOT Slidy
 name: Supabase Migrations
 
 on:

@@ -4,13 +4,13 @@ export function MentionsContentEn() {
       <section>
         <h2 className="mb-3 text-lg font-semibold text-white">Publisher</h2>
         <p>
-          <strong className="text-white">NicheSignal</strong>
+          <strong className="text-white">Niche Founder</strong>
           <br />
           Sole proprietor — France
           <br />
           Email:{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
         </p>
       </section>
@@ -36,7 +36,7 @@ export function MentionsContentEn() {
       <section>
         <h2 className="mb-3 text-lg font-semibold text-white">Intellectual property</h2>
         <p>
-          All NicheSignal content (software, design, database) is protected by intellectual
+          All Niche Founder content (software, design, database) is protected by intellectual
           property law. Unauthorized reproduction is prohibited.
         </p>
       </section>
@@ -45,8 +45,8 @@ export function MentionsContentEn() {
         <h2 className="mb-3 text-lg font-semibold text-white">Contact</h2>
         <p>
           Questions:{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
         </p>
       </section>

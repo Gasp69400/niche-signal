@@ -2,16 +2,16 @@ import type { Dictionary } from "@/i18n/types";
 
 export const fr: Dictionary = {
   meta: {
-    title: "NicheSignal — Trouvez votre prochaine idée SaaS en quelques secondes",
+    title: "Niche Founder — Trouvez votre prochaine idée SaaS en quelques secondes",
     description:
-      "NicheSignal analyse les avis, Reddit et les forums pour identifier des niches SaaS sous-exploitées avec données marché, analyse concurrentielle et scores d'opportunité.",
+      "Niche Founder analyse les avis, Reddit et les forums pour identifier des niches SaaS sous-exploitées avec données marché, analyse concurrentielle et scores d'opportunité.",
   },
   nav: {
     features: "Fonctionnalités",
     pricing: "Tarifs",
     blog: "Blog",
     login: "Connexion",
-    startFree: "Commencer gratuitement",
+    startPro: "Passer Pro",
     dashboard: "Mes rapports",
     logout: "Déconnexion",
   },
@@ -71,8 +71,8 @@ export const fr: Dictionary = {
     titleLine1: "Trouvez votre prochaine",
     titleLine2: "opportunité SaaS",
     subtitle:
-      "NicheSignal analyse Reddit, G2 et les forums pour identifier des niches SaaS sous-exploitées — avec données concurrentielles, pain points et score d'opportunité.",
-    cta: "Commencer gratuitement",
+      "Niche Founder analyse Reddit, G2 et les forums pour identifier des niches SaaS sous-exploitées — avec données concurrentielles, pain points et score d'opportunité.",
+    cta: "Passer Pro",
     demoCta: "Voir une démo live",
     stats: [
       "10k+ SaaS analysés",
@@ -82,8 +82,8 @@ export const fr: Dictionary = {
     searchPlaceholder: "Ex : CRM pour freelancers, facturation pour agences...",
     analyze: "Analyser",
     analyzing: "Analyse...",
-    loginRequired: "Connectez-vous pour lancer votre première analyse",
-    proRequired: "Abonnement Pro requis pour les rapports complets",
+    loginRequired: "Connectez-vous pour lancer une analyse",
+    proRequired: "Abonnement Pro requis — souscrivez pour accéder aux rapports complets",
     reportReady: "Analyse terminée",
     reportReadyHint: "Votre rapport est prêt. Consultez-le sur une page dédiée.",
     reportSavePending: "Analyse générée. Enregistrement en cours ou indisponible.",
@@ -133,7 +133,7 @@ export const fr: Dictionary = {
       {
         title: "Sachez exactement ce que les users détestent",
         description:
-          "NicheSignal scanne des milliers d'avis et posts Reddit pour extraire les pain points récurrents de toute catégorie SaaS — classés par volume de mentions.",
+          "Niche Founder scanne des milliers d'avis et posts Reddit pour extraire les pain points récurrents de toute catégorie SaaS — classés par volume de mentions.",
         cta: "Explorer l'analyse des pain points →",
       },
       {
@@ -171,19 +171,10 @@ export const fr: Dictionary = {
     ],
   },
   pricing: {
-    title: "Tarifs simples et transparents",
-    subtitle: "Commencez gratuitement. Passez Pro quand vous avez besoin de plus.",
-    mostPopular: "Le plus populaire",
-    free: {
-      name: "Gratuit",
-      period: "pour toujours",
-      features: [
-        "2 rapports / jour",
-        "Données concurrents basiques",
-        "Score d'opportunité",
-      ],
-      cta: "Commencer gratuitement",
-    },
+    title: "Un plan Pro, pensé pour les pros",
+    subtitle:
+      "Intelligence marché complète pour fondateurs, product managers et analystes — sans limites artificielles.",
+    badge: "Pour les pros",
     pro: {
       name: "Pro",
       period: "/mois",
@@ -193,16 +184,17 @@ export const fr: Dictionary = {
         "Estimations MRR / ARR",
         "Données taille de marché",
         "Export PDF",
+        "Signaux marché avancés",
       ],
-      cta: "Passer Pro →",
+      cta: "Souscrire au plan Pro →",
     },
   },
   finalCta: {
     titleLine1: "Arrêtez de deviner.",
     titleLine2: "Commencez à construire.",
     subtitle:
-      "Rejoignez 2 000+ fondateurs qui recherchent plus intelligemment avec NicheSignal.",
-    cta: "Essayer gratuitement",
+      "Rejoignez 2 000+ fondateurs qui recherchent plus intelligemment avec Niche Founder.",
+    cta: "Passer Pro",
   },
   footer: {
     tagline:
@@ -228,7 +220,7 @@ export const fr: Dictionary = {
     loginTitle: "Se connecter",
     signupTitle: "S'inscrire",
     loginSubtitle: "Accédez à vos rapports d'analyse.",
-    signupSubtitle: "Créez un compte gratuit en quelques secondes.",
+    signupSubtitle: "Créez votre compte, puis activez le plan Pro pour accéder aux rapports.",
     loginTab: "Se connecter",
     signupTab: "S'inscrire",
     email: "Email",

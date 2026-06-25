@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useI18n } from "@/contexts/I18nContext";
+import { Logo } from "@/components/Logo";
 import { mapAuthError } from "@/lib/auth/errors";
 
 type AuthMode = "login" | "signup" | "forgot";
@@ -139,6 +140,10 @@ export function AuthModal({
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </button>
+
+        <div className="mb-5">
+          <Logo showText />
+        </div>
 
         <h2 className="text-xl font-bold text-white">
           {mode === "login"

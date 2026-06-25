@@ -1,5 +1,5 @@
 -- ============================================================
--- NicheSignal — Toutes les migrations (idempotent)
+-- Niche Founder — Toutes les migrations (idempotent)
 -- Coller dans Supabase → SQL Editor → Run
 -- ============================================================
 

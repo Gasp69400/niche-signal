@@ -2,16 +2,16 @@ import type { Dictionary } from "@/i18n/types";
 
 export const en: Dictionary = {
   meta: {
-    title: "NicheSignal — Find your next SaaS idea in seconds",
+    title: "Niche Founder — Find your next SaaS idea in seconds",
     description:
-      "NicheSignal analyzes reviews, Reddit posts and forums to surface underserved SaaS niches with market data, competitor analysis and opportunity scores.",
+      "Niche Founder analyzes reviews, Reddit posts and forums to surface underserved SaaS niches with market data, competitor analysis and opportunity scores.",
   },
   nav: {
     features: "Features",
     pricing: "Pricing",
     blog: "Blog",
     login: "Login",
-    startFree: "Start for free",
+    startPro: "Go Pro",
     dashboard: "My reports",
     logout: "Log out",
   },
@@ -71,8 +71,8 @@ export const en: Dictionary = {
     titleLine1: "Find your next",
     titleLine2: "SaaS opportunity",
     subtitle:
-      "NicheSignal analyzes Reddit, G2 and forums to surface underserved SaaS niches — with real competitor data, pain points and an opportunity score.",
-    cta: "Start for free",
+      "Niche Founder analyzes Reddit, G2 and forums to surface underserved SaaS niches — with real competitor data, pain points and an opportunity score.",
+    cta: "Go Pro",
     demoCta: "See a live demo",
     stats: [
       "10k+ SaaS analyzed",
@@ -82,8 +82,8 @@ export const en: Dictionary = {
     searchPlaceholder: "Try: CRM for freelancers, invoicing for agencies...",
     analyze: "Analyze",
     analyzing: "Analyzing...",
-    loginRequired: "Sign in to run your first analysis",
-    proRequired: "Pro subscription required for full reports",
+    loginRequired: "Sign in to run an analysis",
+    proRequired: "Pro subscription required — subscribe to access full reports",
     reportReady: "Analysis complete",
     reportReadyHint: "Your report is ready. View it on a dedicated page.",
     reportSavePending: "Analysis generated. Saving is pending or unavailable.",
@@ -133,7 +133,7 @@ export const en: Dictionary = {
       {
         title: "Know exactly what users hate",
         description:
-          "NicheSignal scans thousands of reviews and Reddit posts to extract the most recurring pain points in any SaaS category — ranked by mention volume.",
+          "Niche Founder scans thousands of reviews and Reddit posts to extract the most recurring pain points in any SaaS category — ranked by mention volume.",
         cta: "Explore pain point analysis →",
       },
       {
@@ -171,37 +171,29 @@ export const en: Dictionary = {
     ],
   },
   pricing: {
-    title: "Simple, transparent pricing",
-    subtitle: "Start free. Upgrade when you need unlimited research.",
-    mostPopular: "Most popular",
-    free: {
-      name: "Free",
-      period: "forever",
-      features: [
-        "2 reports / day",
-        "Basic competitor data",
-        "Opportunity score",
-      ],
-      cta: "Get started free",
-    },
+    title: "One Pro plan, built for professionals",
+    subtitle:
+      "Full market intelligence for founders, PMs and analysts — no artificial limits.",
+    badge: "For professionals",
     pro: {
       name: "Pro",
       period: "/month",
       features: [
         "Unlimited reports",
-        "Full competitor analysis",
+        "Full competitive analysis",
         "MRR / ARR estimates",
         "Market size data",
-        "Export to PDF",
+        "PDF export",
+        "Advanced market signals",
       ],
-      cta: "Start Pro →",
+      cta: "Subscribe to Pro →",
     },
   },
   finalCta: {
     titleLine1: "Stop guessing.",
     titleLine2: "Start building.",
-    subtitle: "Join 2,000+ founders who research smarter with NicheSignal.",
-    cta: "Try it free",
+    subtitle: "Join 2,000+ founders who research smarter with Niche Founder.",
+    cta: "Go Pro",
   },
   footer: {
     tagline: "Surface underserved SaaS niches with real market intelligence.",
@@ -226,7 +218,7 @@ export const en: Dictionary = {
     loginTitle: "Log in",
     signupTitle: "Sign up",
     loginSubtitle: "Access your analysis reports.",
-    signupSubtitle: "Create a free account in seconds.",
+    signupSubtitle: "Create your account, then activate Pro to access reports.",
     loginTab: "Log in",
     signupTab: "Sign up",
     email: "Email",

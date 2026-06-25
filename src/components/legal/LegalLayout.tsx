@@ -1,5 +1,6 @@
 "use client";
 
+import { BRAND_NAME } from "@/lib/brand";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { useI18n } from "@/contexts/I18nContext";
@@ -41,7 +42,7 @@ export function LegalLayout({ title, lastUpdated, children }: LegalLayoutProps) 
 
       <footer className="border-t border-glass-border px-6 py-8 text-center text-sm text-muted">
         <p>
-          © 2026 NicheSignal ·{" "}
+          © 2026 {BRAND_NAME} ·{" "}
           <Link href={`/${locale}/cgv`} className="text-accent-blue transition hover:text-accent-sky">
             {t.footer.terms}
           </Link>

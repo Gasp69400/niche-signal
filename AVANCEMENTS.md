@@ -1,4 +1,4 @@
-# NicheSignal — Suivi des avancements
+# Niche Founder — Suivi des avancements
 
 > Dernière mise à jour : 10 juin 2026  
 > Projet : `/Users/gaspardnepple/saas2`  
@@ -9,7 +9,7 @@
 
 ## Résumé du projet
 
-**NicheSignal** est un SaaS d'analyse de marché. L'utilisateur recherche une niche SaaS (ex. « CRM pour freelancers ») et obtient un rapport avec pain points, concurrents, score d'opportunité et verdict.
+**Niche Founder** est un SaaS d'analyse de marché. L'utilisateur recherche une niche SaaS (ex. « CRM pour freelancers ») et obtient un rapport avec pain points, concurrents, score d'opportunité et verdict.
 
 **Stack :** Next.js 14 · TypeScript · Tailwind CSS · Supabase · App Router
 
@@ -64,7 +64,7 @@
 - [x] Fonctions `saveReport()` et `getReportById()` dans `src/lib/db/reports.ts`
 
 ### 7. Design & branding
-- [x] Rebrand : NicheRadar → NichePulse → **NicheSignal**
+- [x] Rebrand : NicheRadar → NichePulse → NicheSignal → NicheScope → **Niche Founder**
 - [x] Logo coloré (cible + pulse, dégradés bleu/violet)
 - [x] Style premium : ombres, glassmorphism navbar, cartes avec hover
 - [x] Palette `signal` (violet #7F77DD) + `navy` dans Tailwind
@@ -199,7 +199,7 @@ npm run dev
 | 09/06/2026 | Composant ReportCard + API `/api/analyze` mock |
 | 09/06/2026 | Base de données Supabase (reports, pain_points, competitors) |
 | 10/06/2026 | Rebrand NichePulse → design blanc/bleu premium |
-| 10/06/2026 | Landing page complète NicheSignal (toutes sections) |
+| 10/06/2026 | Landing page complète Niche Founder (toutes sections) |
 | 10/06/2026 | Modale auth Se connecter / S'inscrire |
 | 10/06/2026 | Gating : recherche → redirect Pricing si pas Pro |
 | 10/06/2026 | Table profiles + AuthContext Supabase |

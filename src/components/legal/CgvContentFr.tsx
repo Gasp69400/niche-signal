@@ -13,12 +13,12 @@ export function CgvContentFr() {
       <Section title="Article 1 — Objet et champ d'application">
         <p>
           Les présentes Conditions Générales de Vente (ci-après « CGV ») régissent
-          les relations contractuelles entre NicheSignal (ci-après « le Prestataire »)
+          les relations contractuelles entre Niche Founder (ci-après « le Prestataire »)
           et toute personne physique ou morale souscrivant aux services proposés sur
-          le site nichesignal.com (ci-après « le Client »).
+          le site nichefounder.com (ci-après « le Client »).
         </p>
         <p>
-          NicheSignal est un service en ligne (SaaS) d&apos;analyse de marché permettant
+          Niche Founder est un service en ligne (SaaS) d&apos;analyse de marché permettant
           d&apos;identifier des niches SaaS, d&apos;analyser les pain points utilisateurs,
           les concurrents et d&apos;obtenir un score d&apos;opportunité.
         </p>
@@ -31,34 +31,32 @@ export function CgvContentFr() {
 
       <Section title="Article 2 — Identité du Prestataire">
         <p>
-          <strong className="text-white">Raison sociale :</strong> NicheSignal
+          <strong className="text-white">Raison sociale :</strong> Niche Founder
           <br />
           <strong className="text-white">Forme juridique :</strong> Entrepreneur individuel
           <br />
           <strong className="text-white">Siège social :</strong> France
           <br />
           <strong className="text-white">Email :</strong>{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           <br />
-          <strong className="text-white">Directeur de la publication :</strong> Le fondateur de NicheSignal
+          <strong className="text-white">Directeur de la publication :</strong> Le fondateur de Niche Founder
         </p>
       </Section>
 
       <Section title="Article 3 — Description des services">
-        <p>NicheSignal propose deux formules :</p>
+        <p>
+          Niche Founder propose une formule <strong className="text-white">Pro (29 € TTC / mois)</strong>{" "}
+          donnant accès à l&apos;ensemble des fonctionnalités :
+        </p>
         <ul className="list-disc space-y-2 pl-5">
-          <li>
-            <strong className="text-white">Formule Free (gratuite) :</strong> accès limité
-            à 2 rapports d&apos;analyse par jour, données concurrents basiques et score
-            d&apos;opportunité.
-          </li>
-          <li>
-            <strong className="text-white">Formule Pro (29 € TTC / mois) :</strong> rapports
-            illimités, analyse concurrentielle complète, estimations ARR/MRR, données de
-            taille de marché et export PDF.
-          </li>
+          <li>Rapports d&apos;analyse illimités</li>
+          <li>Analyse concurrentielle complète</li>
+          <li>Estimations ARR/MRR et signaux marché avancés</li>
+          <li>Données de taille de marché</li>
+          <li>Export PDF</li>
         </ul>
         <p>
           Les rapports générés sont fournis à titre informatif. Ils s&apos;appuient sur des
@@ -87,9 +85,8 @@ export function CgvContentFr() {
 
       <Section title="Article 5 — Souscription et exécution du contrat">
         <p>
-          La souscription s&apos;effectue en ligne sur le site nichesignal.com. Le contrat
-          est conclu au moment de la validation du paiement (formule Pro) ou de la
-          création du compte (formule Free).
+          La souscription s&apos;effectue en ligne sur le site nichefounder.com. Le contrat
+          est conclu au moment de la validation du paiement de l&apos;abonnement Pro.
         </p>
         <p>
           Le Client reçoit une confirmation par email. L&apos;accès aux services est
@@ -99,15 +96,11 @@ export function CgvContentFr() {
 
       <Section title="Article 6 — Durée, résiliation et renouvellement">
         <p>
-          <strong className="text-white">Formule Free :</strong> durée indéterminée,
-          résiliable à tout moment par suppression du compte.
-        </p>
-        <p>
-          <strong className="text-white">Formule Pro :</strong> abonnement mensuel à
-          durée indéterminée, renouvelé automatiquement chaque mois. Le Client peut
-          résilier à tout moment depuis son espace client ou en contactant{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          L&apos;abonnement Pro est mensuel, à durée indéterminée, renouvelé automatiquement
+          chaque mois. Le Client peut résilier à tout moment depuis son espace client ou en
+          contactant{" "}
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           . La résiliation prend effet à la fin de la période en cours ; aucun
           remboursement au prorata n&apos;est dû pour la période entamée.
@@ -132,8 +125,8 @@ export function CgvContentFr() {
         <p>
           Pour exercer le droit de rétractation dans les cas applicables, le Client
           peut adresser sa demande à{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           .
         </p>
@@ -157,7 +150,7 @@ export function CgvContentFr() {
 
       <Section title="Article 9 — Propriété intellectuelle">
         <p>
-          L&apos;ensemble des éléments du site NicheSignal (logiciels, algorithmes,
+          L&apos;ensemble des éléments du site Niche Founder (logiciels, algorithmes,
           interface, marque, contenus) sont la propriété exclusive du Prestataire et
           sont protégés par le droit de la propriété intellectuelle.
         </p>
@@ -189,8 +182,8 @@ export function CgvContentFr() {
           Général sur la Protection des Données (RGPD) et à la loi Informatique et
           Libertés. Pour plus d&apos;informations, consultez notre politique de
           confidentialité ou contactez-nous à{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           .
         </p>
@@ -210,8 +203,8 @@ export function CgvContentFr() {
           consommateur peut recourir gratuitement à un médiateur de la consommation en
           vue de la résolution amiable d&apos;un litige. Le médiateur compétent sera
           communiqué sur demande à{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           .
         </p>

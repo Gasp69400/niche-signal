@@ -1,4 +1,4 @@
-# NicheSignal
+# Niche Founder
 
 Outil d'intelligence marché pour identifier des niches SaaS sous-exploitées.
 
@@ -21,9 +21,9 @@ npm run dev
 
 → [http://localhost:3002/en](http://localhost:3002/en) (port **3002**, Slidy utilise 3000/3001)
 
-## Isolation Slidy / NicheSignal
+## Isolation Slidy / Niche Founder
 
-| Ressource | NicheSignal | Slidy |
+| Ressource | Niche Founder | Slidy |
 |-----------|-------------|-------|
 | Repo GitHub | `niche-signal` | repo Slidy |
 | Supabase | projet `niche-signal` | projet Slidy |

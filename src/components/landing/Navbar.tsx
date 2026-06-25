@@ -78,14 +78,13 @@ export function Navbar() {
               >
                 {t.nav.login}
               </button>
-              <button
-                type="button"
-                onClick={() => openAuth("signup")}
+              <a
+                href="#pricing"
                 className="btn-glow relative overflow-hidden rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white shadow-glow-sm sm:px-5"
               >
-                <span className="relative z-10">{t.nav.startFree}</span>
+                <span className="relative z-10">{t.nav.startPro}</span>
                 <span className="absolute inset-0 animate-shimmer-slide bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-              </button>
+              </a>
             </>
           )}
         </div>

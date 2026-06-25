@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { useI18n } from "@/contexts/I18nContext";
+import { BRAND_EMAIL, BRAND_NAME } from "@/lib/brand";
 
 export function Footer() {
   const { locale, t } = useI18n();
@@ -29,7 +30,7 @@ export function Footer() {
       title: f.company,
       links: [
         { label: f.about, href: "#" },
-        { label: f.contact, href: "mailto:contact@nichesignal.com" },
+        { label: f.contact, href: `mailto:${BRAND_EMAIL}` },
       ],
     },
     {
@@ -75,7 +76,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 border-t border-glass-border pt-8 text-center text-sm text-muted">
-          <p>© 2026 NicheSignal · {t.footer.builtBy}</p>
+          <p>© 2026 {BRAND_NAME} · {t.footer.builtBy}</p>
           <p className="mt-2">
             <Link
               href={`/${locale}/cgv`}

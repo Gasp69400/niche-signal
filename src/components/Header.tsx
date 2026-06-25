@@ -11,10 +11,10 @@ export function Header() {
           <Logo />
           <div className="flex flex-col">
             <span className="text-[1.15rem] font-semibold tracking-tight text-slate-900">
-              Niche<span className="text-pulse-500">Pulse</span>
+              Niche<span className="text-accent-blue"> Founder</span>
             </span>
             <span className="text-[11px] font-medium tracking-[0.12em] text-slate-400">
-              MARKET INTELLIGENCE
+              INTELLIGENCE MARCHÉ SAAS
             </span>
           </div>
         </a>
@@ -27,7 +27,7 @@ export function Header() {
           </a>
           <a
             href="#"
-            className="rounded-full bg-gradient-to-r from-pulse-500 to-pulse-600 px-5 py-2.5 text-white shadow-glow transition hover:from-pulse-600 hover:to-pulse-700"
+            className="rounded-full bg-accent-blue px-5 py-2.5 text-white shadow-glow-sm transition hover:bg-accent-blue/90"
           >
             Connexion
           </a>

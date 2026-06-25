@@ -13,35 +13,38 @@ export function CgvContentEn() {
       <Section title="1 — Scope and acceptance">
         <p>
           These Terms of Service govern the contractual relationship between
-          NicheSignal (&quot;the Provider&quot;) and any individual or entity
-          subscribing to services on nichesignal.com (&quot;the Customer&quot;).
+          Niche Founder (&quot;the Provider&quot;) and any individual or entity
+          subscribing to services on nichefounder.com (&quot;the Customer&quot;).
         </p>
         <p>
-          NicheSignal is an online SaaS market analysis service. Any subscription
+          Niche Founder is an online SaaS market analysis service. Any subscription
           implies full acceptance of these Terms.
         </p>
       </Section>
 
       <Section title="2 — Provider identity">
         <p>
-          <strong className="text-white">NicheSignal</strong> — Sole proprietor, France
+          <strong className="text-white">Niche Founder</strong> — Sole proprietor, France
           <br />
           Email:{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
         </p>
       </Section>
 
       <Section title="3 — Services and pricing">
         <p>
-          <strong className="text-white">Free plan:</strong> 2 reports/day, basic competitor
-          data, opportunity score.
+          Niche Founder offers a single <strong className="text-white">Pro plan (€29/month)</strong>{" "}
+          with full access to all features:
         </p>
-        <p>
-          <strong className="text-white">Pro plan (€29/month):</strong> unlimited reports,
-          full competitor analysis, ARR/MRR estimates, market size data, PDF export.
-        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Unlimited analysis reports</li>
+          <li>Full competitive analysis</li>
+          <li>ARR/MRR estimates and advanced market signals</li>
+          <li>Market size data</li>
+          <li>PDF export</li>
+        </ul>
         <p>
           Reports are provided for informational purposes only. Data is based on public
           sources and algorithmic estimates without guarantee of accuracy.
@@ -58,8 +61,8 @@ export function CgvContentEn() {
       <Section title="5 — Cancellation">
         <p>
           Customers may cancel at any time from their account or by emailing{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
           . Cancellation takes effect at the end of the current billing period.
         </p>
@@ -82,8 +85,8 @@ export function CgvContentEn() {
       <Section title="8 — Personal data">
         <p>
           Personal data is processed in accordance with GDPR. Contact{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>{" "}
           for any request.
         </p>

@@ -4,13 +4,13 @@ export function MentionsContentFr() {
       <section>
         <h2 className="mb-3 text-lg font-semibold text-white">Éditeur du site</h2>
         <p>
-          <strong className="text-white">NicheSignal</strong>
+          <strong className="text-white">Niche Founder</strong>
           <br />
           Entrepreneur individuel — France
           <br />
           Email :{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
         </p>
       </section>
@@ -36,7 +36,7 @@ export function MentionsContentFr() {
       <section>
         <h2 className="mb-3 text-lg font-semibold text-white">Propriété intellectuelle</h2>
         <p>
-          L&apos;ensemble du contenu du site NicheSignal (textes, graphismes, logiciels,
+          L&apos;ensemble du contenu du site Niche Founder (textes, graphismes, logiciels,
           base de données) est protégé par le droit de la propriété intellectuelle.
           Toute reproduction non autorisée est interdite.
         </p>
@@ -46,8 +46,8 @@ export function MentionsContentFr() {
         <h2 className="mb-3 text-lg font-semibold text-white">Contact</h2>
         <p>
           Pour toute question :{" "}
-          <a href="mailto:contact@nichesignal.com" className="text-accent-blue hover:underline">
-            contact@nichesignal.com
+          <a href="mailto:contact@nichefounder.com" className="text-accent-blue hover:underline">
+            contact@nichefounder.com
           </a>
         </p>
       </section>

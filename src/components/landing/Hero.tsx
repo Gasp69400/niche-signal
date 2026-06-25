@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
+import { redirectToPricing } from "@/lib/navigation";
 import { AnalysisReadyBanner } from "@/components/landing/AnalysisReadyBanner";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
 import { ReportDemoMockup } from "@/components/landing/mockups/ReportDemoMockup";
@@ -26,7 +27,7 @@ const STAT_ICONS = [
 
 export function Hero() {
   const { t, locale } = useI18n();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, canAnalyze } = useAuth();
   const { openAuth } = useAuthModal();
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +51,12 @@ export function Hero() {
       if (!user) {
         pendingAnalysisRef.current = domain.trim();
         openAuth("login");
+        return;
+      }
+
+      if (!canAnalyze) {
+        setError(t.hero.proRequired);
+        redirectToPricing();
         return;
       }
 
@@ -83,16 +90,23 @@ export function Hero() {
         setIsLoading(false);
       }
     },
-    [authLoading, user, openAuth]
+    [authLoading, user, canAnalyze, openAuth, t.hero.proRequired]
   );
 
   useEffect(() => {
     if (!user || authLoading || !pendingAnalysisRef.current) return;
 
+    if (!canAnalyze) {
+      pendingAnalysisRef.current = null;
+      setError(t.hero.proRequired);
+      redirectToPricing();
+      return;
+    }
+
     const domain = pendingAnalysisRef.current;
     pendingAnalysisRef.current = null;
     void runAnalysis(domain);
-  }, [user, authLoading, runAnalysis]);
+  }, [user, authLoading, canAnalyze, runAnalysis, t.hero.proRequired]);
 
   function handleAnalyze(e: React.FormEvent) {
     e.preventDefault();
@@ -149,7 +163,10 @@ export function Hero() {
             {!authLoading && !user && (
               <p className="mt-3 text-xs text-muted">{t.hero.loginRequired}</p>
             )}
-            {!authLoading && user && (
+            {!authLoading && user && !canAnalyze && (
+              <p className="mt-3 text-xs text-amber-400/90">{t.hero.proRequired}</p>
+            )}
+            {!authLoading && user && canAnalyze && (
               <Link
                 href={`/${locale}/dashboard`}
                 className="btn-glow mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-blue px-6 py-3 text-sm font-semibold text-white shadow-glow-sm"
@@ -196,16 +213,15 @@ export function Hero() {
         <FadeIn delay={400}>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {!authLoading && !user && (
-              <button
-                type="button"
-                onClick={() => openAuth("signup")}
+              <a
+                href="#pricing"
                 className="btn-glow inline-flex items-center gap-2 rounded-2xl bg-accent-blue px-8 py-4 text-base font-semibold text-white shadow-glow"
               >
                 {t.hero.cta}
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
-              </button>
+              </a>
             )}
             <button
               type="button"

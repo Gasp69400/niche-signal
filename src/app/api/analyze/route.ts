@@ -11,18 +11,19 @@ export async function POST(request: NextRequest) {
   }
 
   const allowed = await userCanAnalyze(request);
-  if (!allowed) {
+  const user = await getAuthenticatedUser(request);
+
+  if (!user) {
     return NextResponse.json(
       { error: "Connexion requise pour générer un rapport" },
       { status: 401 }
     );
   }
 
-  const user = await getAuthenticatedUser(request);
-  if (!user) {
+  if (!allowed) {
     return NextResponse.json(
-      { error: "Session expirée, reconnectez-vous" },
-      { status: 401 }
+      { error: "Abonnement Pro requis pour générer un rapport" },
+      { status: 403 }
     );
   }
 

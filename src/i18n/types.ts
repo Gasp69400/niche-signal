@@ -5,7 +5,7 @@ export interface Dictionary {
     pricing: string;
     blog: string;
     login: string;
-    startFree: string;
+    startPro: string;
     dashboard: string;
     logout: string;
   };
@@ -111,13 +111,7 @@ export interface Dictionary {
   pricing: {
     title: string;
     subtitle: string;
-    mostPopular: string;
-    free: {
-      name: string;
-      period: string;
-      features: string[];
-      cta: string;
-    };
+    badge: string;
     pro: {
       name: string;
       period: string;
