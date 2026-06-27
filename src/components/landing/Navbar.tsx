@@ -5,12 +5,14 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/contexts/AuthContext";
+import { useReportQuota } from "@/contexts/ReportQuotaContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
 
 export function Navbar() {
   const { locale, t } = useI18n();
-  const { user, signOut } = useAuth();
+  const { user, canAnalyze, signOut } = useAuth();
+  const { quota } = useReportQuota();
   const { openAuth } = useAuthModal();
   const [scrolled, setScrolled] = useState(false);
 
@@ -58,7 +60,26 @@ export function Navbar() {
           <LanguageSwitcher />
           {user ? (
             <>
-              <span className="hidden max-w-[140px] truncate text-sm text-muted sm:inline">
+              {canAnalyze && quota && (
+                <Link
+                  href={`/${locale}/dashboard`}
+                  title={t.quota.compact
+                    .replace("{used}", String(quota.used))
+                    .replace("{limit}", String(quota.limit))
+                    .replace("{remaining}", String(quota.remaining))}
+                  className="hidden rounded-lg border border-glass-border bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-white/90 transition hover:border-accent-blue/30 lg:inline-flex lg:flex-col lg:items-end lg:leading-tight"
+                >
+                  <span className="font-semibold text-accent-sky">
+                    {t.nav.quotaShort
+                      .replace("{remaining}", String(quota.remaining))
+                      .replace("{limit}", String(quota.limit))}
+                  </span>
+                  <span className="text-[10px] text-muted">
+                    {quota.used}/{quota.limit} {t.quota.used.toLowerCase()}
+                  </span>
+                </Link>
+              )}
+              <span className="hidden max-w-[140px] truncate text-sm text-muted xl:inline">
                 {user.email}
               </span>
               <button

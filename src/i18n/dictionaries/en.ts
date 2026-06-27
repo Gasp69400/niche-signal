@@ -14,6 +14,7 @@ export const en: Dictionary = {
     startPro: "Go Pro",
     dashboard: "My reports",
     logout: "Log out",
+    quotaShort: "{remaining}/{limit} reports",
   },
   dashboard: {
     label: "Dashboard",
@@ -37,6 +38,21 @@ export const en: Dictionary = {
   favorites: {
     add: "Add to favorites",
     remove: "Remove from favorites",
+  },
+  quota: {
+    title: "Monthly quota",
+    used: "Used",
+    remaining: "Remaining",
+    remainingLabel: "remaining",
+    limit: "Limit",
+    reset: "Resets on",
+    resetOn: "{date}",
+    summary: "{used} report(s) generated this month · {remaining} available out of {limit}",
+    percentUsed: "{percent}% used",
+    compact: "{used}/{limit} reports · {remaining} left",
+    exhausted: "Quota reached",
+    exhaustedHint:
+      "You've reached the {limit}-report limit for this month. Your quota resets on {date}.",
   },
   report: {
     exportPdf: "Download PDF brief",
@@ -173,13 +189,13 @@ export const en: Dictionary = {
   pricing: {
     title: "One Pro plan, built for professionals",
     subtitle:
-      "Full market intelligence for founders, PMs and analysts — no artificial limits.",
+      "Full market intelligence for founders, PMs and analysts — up to 80 analyses per month.",
     badge: "For professionals",
     pro: {
       name: "Pro",
       period: "/month",
       features: [
-        "Unlimited reports",
+        "80 reports per month",
         "Full competitive analysis",
         "MRR / ARR estimates",
         "Market size data",

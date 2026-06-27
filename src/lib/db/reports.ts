@@ -1,3 +1,4 @@
+import { getCurrentMonthStartIso } from "@/lib/plans";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { enrichCompetitorWebsite } from "@/lib/reports/competitor-links";
 import {
@@ -155,6 +156,24 @@ export async function getCachedReport(
   }
 
   return mapRowToReport(match as ReportRow);
+}
+
+export async function countUserReportsThisMonth(userId: string): Promise<number> {
+  const supabase = createAdminClient();
+  const monthStart = getCurrentMonthStartIso();
+
+  const { count, error } = await supabase
+    .from("reports")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", monthStart);
+
+  if (error) {
+    console.error("[reports] countUserReportsThisMonth:", error.message);
+    return 0;
+  }
+
+  return count ?? 0;
 }
 
 export async function saveReport(

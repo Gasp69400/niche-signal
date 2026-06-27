@@ -8,6 +8,7 @@ import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
 import { apiFetch } from "@/lib/api/fetch";
 import { FavoriteButton } from "@/components/report/FavoriteButton";
+import { ReportQuotaCard } from "@/components/report/ReportQuotaCard";
 import type { ReportSummary } from "@/types/report-summary";
 
 type Tab = "all" | "favorites";
@@ -22,7 +23,7 @@ function formatDate(date: string, locale: string) {
 
 export function ReportsDashboard() {
   const { locale, t } = useI18n();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, canAnalyze } = useAuth();
   const { openAuth } = useAuthModal();
   const router = useRouter();
 
@@ -104,6 +105,8 @@ export function ReportsDashboard() {
           {t.dashboard.newAnalysis}
         </Link>
       </div>
+
+      {canAnalyze && <ReportQuotaCard className="mb-8" />}
 
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex rounded-xl bg-white/[0.03] p-1">

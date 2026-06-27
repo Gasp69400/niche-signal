@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useReportQuota } from "@/contexts/ReportQuotaContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
 import { ReportCard } from "@/components/ReportCard";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
+import { ReportQuotaCard } from "@/components/report/ReportQuotaCard";
 import { apiFetch } from "@/lib/api/fetch";
 import type { AnalyzeReport } from "@/types/market-report";
 
@@ -17,7 +19,8 @@ interface ReportDetailProps {
 
 export function ReportDetail({ reportId }: ReportDetailProps) {
   const { locale, t } = useI18n();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, canAnalyze } = useAuth();
+  const { refreshQuota } = useReportQuota();
   const { openAuth } = useAuthModal();
   const router = useRouter();
 
@@ -74,6 +77,7 @@ export function ReportDetail({ reportId }: ReportDetailProps) {
       }
 
       const data: AnalyzeReport = await res.json();
+      void refreshQuota();
       if (data.id) {
         router.push(`/${locale}/dashboard/${data.id}`);
       } else {
@@ -107,6 +111,8 @@ export function ReportDetail({ reportId }: ReportDetailProps) {
           {t.dashboard.backToList}
         </Link>
       </div>
+
+      {canAnalyze && <ReportQuotaCard variant="compact" className="mb-6" />}
 
       {error && (
         <p className="mb-6 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-400 ring-1 ring-red-500/20">

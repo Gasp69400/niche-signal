@@ -14,6 +14,7 @@ export const fr: Dictionary = {
     startPro: "Passer Pro",
     dashboard: "Mes rapports",
     logout: "Déconnexion",
+    quotaShort: "{remaining}/{limit} rapports",
   },
   dashboard: {
     label: "Dashboard",
@@ -37,6 +38,21 @@ export const fr: Dictionary = {
   favorites: {
     add: "Ajouter aux favoris",
     remove: "Retirer des favoris",
+  },
+  quota: {
+    title: "Quota mensuel",
+    used: "Utilisés",
+    remaining: "Restants",
+    remainingLabel: "restants",
+    limit: "Limite",
+    reset: "Renouvellement",
+    resetOn: "Le {date}",
+    summary: "{used} rapport(s) généré(s) ce mois · {remaining} disponible(s) sur {limit}",
+    percentUsed: "{percent}% utilisé",
+    compact: "{used}/{limit} rapports · {remaining} restants",
+    exhausted: "Quota épuisé",
+    exhaustedHint:
+      "Vous avez atteint la limite de {limit} rapports ce mois-ci. Votre quota se renouvelle le {date}.",
   },
   report: {
     exportPdf: "Télécharger le dossier PDF",
@@ -173,13 +189,13 @@ export const fr: Dictionary = {
   pricing: {
     title: "Un plan Pro, pensé pour les pros",
     subtitle:
-      "Intelligence marché complète pour fondateurs, product managers et analystes — sans limites artificielles.",
+      "Intelligence marché complète pour fondateurs, product managers et analystes — jusqu'à 80 analyses par mois.",
     badge: "Pour les pros",
     pro: {
       name: "Pro",
       period: "/mois",
       features: [
-        "Rapports illimités",
+        "80 rapports par mois",
         "Analyse concurrentielle complète",
         "Estimations MRR / ARR",
         "Données taille de marché",

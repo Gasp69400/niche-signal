@@ -24,7 +24,7 @@ export function Pricing() {
   const { t } = useI18n();
   const plan = {
     ...t.pricing.pro,
-    price: "€29",
+    price: "€27,99",
     href: STRIPE_CHECKOUT_URL,
   };
 

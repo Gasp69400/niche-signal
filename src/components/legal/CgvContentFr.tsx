@@ -48,11 +48,11 @@ export function CgvContentFr() {
 
       <Section title="Article 3 — Description des services">
         <p>
-          Niche Founder propose une formule <strong className="text-white">Pro (29 € TTC / mois)</strong>{" "}
+          Niche Founder propose une formule <strong className="text-white">Pro (27,99 € TTC / mois)</strong>{" "}
           donnant accès à l&apos;ensemble des fonctionnalités :
         </p>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Rapports d&apos;analyse illimités</li>
+          <li>Jusqu&apos;à 80 rapports d&apos;analyse par mois (quota renouvelé le 1er de chaque mois)</li>
           <li>Analyse concurrentielle complète</li>
           <li>Estimations ARR/MRR et signaux marché avancés</li>
           <li>Données de taille de marché</li>

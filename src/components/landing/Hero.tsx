@@ -3,12 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import { useReportQuota } from "@/contexts/ReportQuotaContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
 import { useI18n } from "@/contexts/I18nContext";
 import { redirectToPricing } from "@/lib/navigation";
 import { AnalysisReadyBanner } from "@/components/landing/AnalysisReadyBanner";
 import { ReportSkeleton } from "@/components/report/ReportSkeleton";
 import { ReportDemoMockup } from "@/components/landing/mockups/ReportDemoMockup";
+import { ReportQuotaCard } from "@/components/report/ReportQuotaCard";
 import { FadeIn } from "@/components/landing/FadeIn";
 import { apiFetch } from "@/lib/api/fetch";
 import type { AnalyzeReport } from "@/types/market-report";
@@ -28,6 +30,7 @@ const STAT_ICONS = [
 export function Hero() {
   const { t, locale } = useI18n();
   const { user, loading: authLoading, canAnalyze } = useAuth();
+  const { quota, refreshQuota } = useReportQuota();
   const { openAuth } = useAuthModal();
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +63,11 @@ export function Hero() {
         return;
       }
 
+      if (quota?.isExceeded) {
+        setError(t.quota.exhausted);
+        return;
+      }
+
       setQuery(domain);
       setIsLoading(true);
       setError(null);
@@ -78,6 +86,7 @@ export function Hero() {
 
         const data: AnalyzeReport = await res.json();
         setReport(data);
+        void refreshQuota();
         requestAnimationFrame(() => {
           document.getElementById("report-result")?.scrollIntoView({
             behavior: "smooth",
@@ -90,7 +99,7 @@ export function Hero() {
         setIsLoading(false);
       }
     },
-    [authLoading, user, canAnalyze, openAuth, t.hero.proRequired]
+    [authLoading, user, canAnalyze, openAuth, t.hero.proRequired, t.quota.exhausted, quota, refreshQuota]
   );
 
   useEffect(() => {
@@ -154,7 +163,7 @@ export function Hero() {
               />
               <button
                 type="submit"
-                disabled={isLoading || authLoading || !query.trim()}
+                disabled={isLoading || authLoading || !query.trim() || quota?.isExceeded}
                 className="btn-glow rounded-xl bg-accent-blue px-6 py-3.5 text-sm font-semibold text-white shadow-glow-sm disabled:opacity-50"
               >
                 {isLoading ? t.hero.analyzing : `${t.hero.analyze} →`}
@@ -167,15 +176,18 @@ export function Hero() {
               <p className="mt-3 text-xs text-amber-400/90">{t.hero.proRequired}</p>
             )}
             {!authLoading && user && canAnalyze && (
-              <Link
-                href={`/${locale}/dashboard`}
-                className="btn-glow mt-5 inline-flex items-center gap-2 rounded-xl bg-accent-blue px-6 py-3 text-sm font-semibold text-white shadow-glow-sm"
-              >
-                {t.nav.dashboard}
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
+              <div className="mt-4 flex flex-col items-center gap-3">
+                <ReportQuotaCard variant="compact" />
+                <Link
+                  href={`/${locale}/dashboard`}
+                  className="btn-glow inline-flex items-center gap-2 rounded-xl bg-accent-blue px-6 py-3 text-sm font-semibold text-white shadow-glow-sm"
+                >
+                  {t.nav.dashboard}
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
             )}
           </form>
         </FadeIn>

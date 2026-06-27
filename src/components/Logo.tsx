@@ -1,4 +1,5 @@
 import { BRAND_NAME } from "@/lib/brand";
+import { LogoMark } from "@/components/LogoMark";
 
 interface LogoProps {
   showText?: boolean;
@@ -13,8 +14,10 @@ export function BrandName({ className = "" }: { className?: string }) {
   );
 }
 
+const MARK_SIZE = { sm: 28, md: 36 } as const;
+
 export function Logo({ showText = false, size = "md" }: LogoProps) {
-  const dot = size === "sm" ? "h-2 w-2" : "h-2.5 w-2.5";
+  const markSize = MARK_SIZE[size];
 
   if (showText) {
     return (
@@ -22,8 +25,9 @@ export function Logo({ showText = false, size = "md" }: LogoProps) {
         className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-white"
         aria-label={BRAND_NAME}
       >
-        <span
-          className={`${dot} rounded-full bg-accent-blue shadow-[0_0_12px_rgba(59,130,246,0.8)]`}
+        <LogoMark
+          size={markSize}
+          className="shrink-0 drop-shadow-[0_0_14px_rgba(59,130,246,0.45)]"
         />
         <BrandName />
       </span>
@@ -32,11 +36,12 @@ export function Logo({ showText = false, size = "md" }: LogoProps) {
 
   return (
     <div
-      className="glass-card flex h-9 w-9 items-center justify-center rounded-xl"
+      className="flex shrink-0 items-center justify-center"
       aria-label={BRAND_NAME}
     >
-      <span
-        className={`${dot} rounded-full bg-accent-blue shadow-[0_0_12px_rgba(59,130,246,0.8)]`}
+      <LogoMark
+        size={markSize}
+        className="drop-shadow-[0_0_14px_rgba(59,130,246,0.45)]"
       />
     </div>
   );

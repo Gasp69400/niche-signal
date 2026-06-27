@@ -35,11 +35,11 @@ export function CgvContentEn() {
 
       <Section title="3 — Services and pricing">
         <p>
-          Niche Founder offers a single <strong className="text-white">Pro plan (€29/month)</strong>{" "}
+          Niche Founder offers a single <strong className="text-white">Pro plan (€27.99/month)</strong>{" "}
           with full access to all features:
         </p>
         <ul className="list-disc space-y-2 pl-5">
-          <li>Unlimited analysis reports</li>
+          <li>Up to 80 analysis reports per month (quota resets on the 1st of each month)</li>
           <li>Full competitive analysis</li>
           <li>ARR/MRR estimates and advanced market signals</li>
           <li>Market size data</li>

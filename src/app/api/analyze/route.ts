@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeDomain } from "@/lib/ai/analyze-domain";
 import { getAuthenticatedUser, userCanAnalyze } from "@/lib/auth/server";
-import { getCachedReport, saveReport } from "@/lib/db/reports";
+import {
+  countUserReportsThisMonth,
+  getCachedReport,
+  saveReport,
+} from "@/lib/db/reports";
+import {
+  hasReachedMonthlyReportLimit,
+  PRO_MONTHLY_REPORT_LIMIT,
+} from "@/lib/plans";
 
 export async function POST(request: NextRequest) {
   const { domain, refresh } = await request.json();
@@ -28,6 +36,19 @@ export async function POST(request: NextRequest) {
   }
 
   const trimmedDomain = domain.trim();
+
+  const usedThisMonth = await countUserReportsThisMonth(user.id);
+  if (hasReachedMonthlyReportLimit(usedThisMonth)) {
+    return NextResponse.json(
+      {
+        error: `Limite mensuelle atteinte (${PRO_MONTHLY_REPORT_LIMIT} rapports/mois). Renouvellement le 1er du mois.`,
+        code: "QUOTA_EXCEEDED",
+        limit: PRO_MONTHLY_REPORT_LIMIT,
+        used: usedThisMonth,
+      },
+      { status: 429 }
+    );
+  }
 
   try {
     if (!refresh) {

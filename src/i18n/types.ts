@@ -8,6 +8,7 @@ export interface Dictionary {
     startPro: string;
     dashboard: string;
     logout: string;
+    quotaShort: string;
   };
   dashboard: {
     label: string;
@@ -31,6 +32,20 @@ export interface Dictionary {
   favorites: {
     add: string;
     remove: string;
+  };
+  quota: {
+    title: string;
+    used: string;
+    remaining: string;
+    remainingLabel: string;
+    limit: string;
+    reset: string;
+    resetOn: string;
+    summary: string;
+    percentUsed: string;
+    compact: string;
+    exhausted: string;
+    exhaustedHint: string;
   };
   report: {
     exportPdf: string;
