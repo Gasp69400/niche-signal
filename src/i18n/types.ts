@@ -48,6 +48,15 @@ export interface Dictionary {
     exhausted: string;
     exhaustedHint: string;
   };
+  billing: {
+    checkoutLoading: string;
+    checkoutError: string;
+    checkoutSuccess: string;
+    checkoutCancel: string;
+    manageBilling: string;
+    portalLoading: string;
+    portalError: string;
+  };
   monthlyOpportunities: {
     label: string;
     title: string;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { SubscribeButton } from "@/components/billing/SubscribeButton";
 import { useAuth } from "@/contexts/AuthContext";
 import { useReportQuota } from "@/contexts/ReportQuotaContext";
 import { useAuthModal } from "@/contexts/AuthModalContext";
@@ -102,13 +103,14 @@ export function Navbar() {
               >
                 {t.nav.login}
               </button>
-              <a
-                href="#pricing"
-                className="btn-glow relative overflow-hidden rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white shadow-glow-sm sm:px-5"
+              <SubscribeButton
+                redirectIfPro={`/${locale}/dashboard`}
+                wrapperClassName="inline-block shrink-0"
+                className="btn-glow relative overflow-hidden rounded-xl bg-accent-blue px-4 py-2 text-sm font-semibold text-white shadow-glow-sm sm:px-5 disabled:opacity-50"
               >
                 <span className="relative z-10">{t.nav.startPro}</span>
                 <span className="absolute inset-0 animate-shimmer-slide bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-              </a>
+              </SubscribeButton>
             </>
           )}
         </div>

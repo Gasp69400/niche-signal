@@ -1,10 +1,8 @@
 "use client";
 
 import { FadeIn } from "@/components/landing/FadeIn";
+import { SubscribeButton } from "@/components/billing/SubscribeButton";
 import { useI18n } from "@/contexts/I18nContext";
-
-const STRIPE_CHECKOUT_URL =
-  process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_URL ?? "#pricing";
 
 function CheckIcon() {
   return (
@@ -21,11 +19,10 @@ function CheckIcon() {
 }
 
 export function Pricing() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const plan = {
     ...t.pricing.pro,
     price: "€9,90",
-    href: STRIPE_CHECKOUT_URL,
   };
 
   return (
@@ -61,12 +58,12 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
-            <a
-              href={plan.href}
-              className="btn-glow mt-10 block rounded-xl bg-accent-blue py-3.5 text-center text-sm font-semibold text-white shadow-glow-sm"
+            <SubscribeButton
+              redirectIfPro={`/${locale}/dashboard`}
+              className="btn-glow mt-10 block w-full rounded-xl bg-accent-blue py-3.5 text-center text-sm font-semibold text-white shadow-glow-sm disabled:opacity-50"
             >
               {plan.cta}
-            </a>
+            </SubscribeButton>
           </div>
         </FadeIn>
       </div>

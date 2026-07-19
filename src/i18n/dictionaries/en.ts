@@ -55,6 +55,15 @@ export const en: Dictionary = {
     exhaustedHint:
       "You've reached the {limit}-report limit for this month. Your quota resets on {date}.",
   },
+  billing: {
+    checkoutLoading: "Redirecting to Stripe…",
+    checkoutError: "Could not start checkout.",
+    checkoutSuccess: "Pro subscription activated — thank you!",
+    checkoutCancel: "Checkout canceled. You can try again anytime.",
+    manageBilling: "Manage subscription",
+    portalLoading: "Opening billing portal…",
+    portalError: "Could not open the Stripe portal.",
+  },
   monthlyOpportunities: {
     label: "Monthly edition",
     title: "Monthly opportunities",

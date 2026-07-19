@@ -55,6 +55,15 @@ export const fr: Dictionary = {
     exhaustedHint:
       "Vous avez atteint la limite de {limit} rapports ce mois-ci. Votre quota se renouvelle le {date}.",
   },
+  billing: {
+    checkoutLoading: "Redirection vers Stripe…",
+    checkoutError: "Impossible de démarrer le paiement.",
+    checkoutSuccess: "Abonnement Pro activé — merci !",
+    checkoutCancel: "Paiement annulé. Vous pouvez réessayer quand vous voulez.",
+    manageBilling: "Gérer mon abonnement",
+    portalLoading: "Ouverture du portail…",
+    portalError: "Impossible d'ouvrir le portail Stripe.",
+  },
   monthlyOpportunities: {
     label: "Édition mensuelle",
     title: "Opportunités du mois",

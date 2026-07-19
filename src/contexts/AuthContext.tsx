@@ -154,9 +154,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const login = await signIn(email, password);
         return { ...login, needsEmailConfirmation: false };
-      } catch {
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Inscription impossible";
         return {
-          error: "Inscription impossible",
+          error: message,
           session: null,
           needsEmailConfirmation: false,
         };
