@@ -18,7 +18,7 @@ async function analyzeWithGroq(domain: string, apiKey: string): Promise<AnalyzeR
     },
     body: JSON.stringify({
       model: GROQ_MODEL,
-      max_tokens: 4096,
+      max_tokens: 8192,
       temperature: AI_TEMPERATURE,
       messages: [
         { role: "system", content: ANALYZE_SYSTEM_PROMPT },
@@ -53,12 +53,12 @@ async function analyzeWithClaude(domain: string, apiKey: string): Promise<Analyz
     },
     body: JSON.stringify({
       model: CLAUDE_MODEL,
-      max_tokens: 4096,
+      max_tokens: 8192,
       system: ANALYZE_SYSTEM_PROMPT,
       messages: [
         {
           role: "user",
-          content: `Analyze this SaaS domain: ${domain}`,
+          content: buildAnalyzeUserMessage(domain),
         },
       ],
     }),

@@ -15,6 +15,7 @@ export const fr: Dictionary = {
     dashboard: "Mes rapports",
     logout: "Déconnexion",
     quotaShort: "{remaining}/{limit} rapports",
+    opportunities: "Opportunités du mois",
   },
   dashboard: {
     label: "Dashboard",
@@ -54,6 +55,31 @@ export const fr: Dictionary = {
     exhaustedHint:
       "Vous avez atteint la limite de {limit} rapports ce mois-ci. Votre quota se renouvelle le {date}.",
   },
+  monthlyOpportunities: {
+    label: "Édition mensuelle",
+    title: "Opportunités du mois",
+    subtitle:
+      "Les 5 meilleures niches SaaS du moment, détectées via tendances Google, Reddit et forums fondateurs.",
+    publishedOn: "Édition {month} · générée le {date}",
+    analyzeCta: "Analyser cette niche →",
+    analyzing: "Analyse en cours…",
+    analyzeError: "Impossible de lancer l'analyse.",
+    loadError: "Impossible de charger les opportunités du mois.",
+    empty: "Aucune édition disponible pour le moment.",
+    retry: "Réessayer",
+    backHome: "Retour à l'accueil",
+    disclaimer:
+      "Cette édition s'appuie sur des signaux publics et des estimations IA. Les opportunités sont indicatives — validez toujours avec votre propre analyse avant de vous lancer.",
+    whyNow: "Pourquoi maintenant",
+    topPain: "Pain point #1",
+    dashboardLink: "Voir les opportunités du mois →",
+    metrics: {
+      marketSize: "Taille de marché",
+      competition: "Concurrence",
+      willingnessToPay: "Prix idéal",
+      painLevel: "Urgence du problème",
+    },
+  },
   report: {
     exportPdf: "Télécharger le dossier PDF",
     exportPdfPro: "Dossier PDF — réservé au plan Pro",
@@ -63,6 +89,23 @@ export const fr: Dictionary = {
     linkCopied: "Lien copié !",
     save: "Sauvegarder",
     savePro: "Réservé au plan Pro",
+    competitorsSection: {
+      title: "Cartographie concurrentielle",
+      subtitle:
+        "Jusqu'à {target} SaaS actifs identifiés dans la niche — leaders, challengers et outils émergents.",
+      searchPlaceholder: "Filtrer un concurrent…",
+      refreshHint:
+        "Ce rapport liste moins de {min} concurrents. Relancez une analyse (refresh) pour obtenir la cartographie complète.",
+      noResults: "Aucun concurrent ne correspond à votre recherche.",
+      columns: {
+        name: "SaaS",
+        arr: "ARR / MRR",
+        founded: "Fondé",
+        rating: "Note",
+        price: "Prix",
+        region: "Région",
+      },
+    },
     signals: {
       willingnessToPay: "Fourchette idéale",
       marketTrend: "Dynamique marché",
@@ -155,7 +198,7 @@ export const fr: Dictionary = {
       {
         title: "Voyez qui gagne déjà",
         description:
-          "Obtenez instantanément les données des SaaS existants : ARR/MRR estimé, année de fondation, note G2, pricing et position marché — US et Europe.",
+          "Obtenez instantanément jusqu'à 15 SaaS concurrents par niche : ARR/MRR estimé, année de fondation, note G2, pricing, site web cliquable et position marché — US et Europe.",
         cta: "Voir les données concurrentielles →",
       },
       {
@@ -196,6 +239,7 @@ export const fr: Dictionary = {
       period: "/mois",
       features: [
         "80 rapports par mois",
+        "12+ SaaS concurrents mappés par niche",
         "Analyse concurrentielle complète",
         "Estimations MRR / ARR",
         "Données taille de marché",

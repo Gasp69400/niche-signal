@@ -48,7 +48,7 @@ export function CgvContentFr() {
 
       <Section title="Article 3 — Description des services">
         <p>
-          Niche Founder propose une formule <strong className="text-white">Pro (27,99 € TTC / mois)</strong>{" "}
+          Niche Founder propose une formule <strong className="text-white">Pro (9,90 € TTC / mois)</strong>{" "}
           donnant accès à l&apos;ensemble des fonctionnalités :
         </p>
         <ul className="list-disc space-y-2 pl-5">

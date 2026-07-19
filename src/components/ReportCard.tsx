@@ -9,6 +9,7 @@ import { ReportMarketSignals } from "@/components/report/ReportMarketSignals";
 import { ReportSection } from "@/components/report/ReportSection";
 import { SimilarNiches } from "@/components/report/SimilarNiches";
 import { FavoriteButton } from "@/components/report/FavoriteButton";
+import { ReportCompetitors } from "@/components/report/ReportCompetitors";
 import { TargetPersona } from "@/components/report/TargetPersona";
 import type { AnalyzeReport } from "@/types/market-report";
 
@@ -46,34 +47,6 @@ function MetricCard({
           <span className="ml-1 text-sm font-normal text-muted">/100</span>
         ) : null}
       </p>
-    </div>
-  );
-}
-
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg
-          key={i}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className={`h-4 w-4 ${
-            i < Math.round(rating) ? "text-amber-400" : "text-white/20"
-          }`}
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02l4.111-2.462 4.111 2.462c.714.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.83-4.401Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ))}
-      <span className="ml-1.5 text-sm font-medium text-muted">
-        {rating.toFixed(1)}
-      </span>
     </div>
   );
 }
@@ -152,67 +125,7 @@ export function ReportCard({ report, onAnalyzeNiche, onFavoriteChange }: ReportC
           </div>
         </ReportSection>
 
-        <ReportSection label="Concurrents">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {report.competitors.map((competitor) => (
-              <a
-                key={competitor.name}
-                href={competitor.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card card-hover group block rounded-2xl p-5 transition hover:ring-1 hover:ring-accent-sky/40"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-semibold text-white transition group-hover:text-accent-sky">
-                    {competitor.name}
-                  </h4>
-                  <svg
-                    className="mt-0.5 h-4 w-4 shrink-0 text-muted transition group-hover:text-accent-sky"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                    />
-                  </svg>
-                </div>
-                <dl className="mt-4 space-y-3 text-sm">
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-wider text-muted">ARR / MRR</dt>
-                    <dd className="mt-1 font-medium text-accent-sky">
-                      {competitor.arrMrrEstimate}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-wider text-muted">Fondé en</dt>
-                    <dd className="mt-1 text-white/80">{competitor.foundedYear}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-wider text-muted">Note</dt>
-                    <dd className="mt-1">
-                      <StarRating rating={competitor.rating} />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] uppercase tracking-wider text-muted">Prix</dt>
-                    <dd className="mt-1 text-white/80">{competitor.price}</dd>
-                  </div>
-                  {competitor.region && (
-                    <div>
-                      <dt className="text-[10px] uppercase tracking-wider text-muted">Région</dt>
-                      <dd className="mt-1 text-white/80">{competitor.region}</dd>
-                    </div>
-                  )}
-                </dl>
-              </a>
-            ))}
-          </div>
-        </ReportSection>
+        <ReportCompetitors competitors={report.competitors} />
 
         <ReportSection label="Persona cible idéal">
           <TargetPersona persona={report.persona} />

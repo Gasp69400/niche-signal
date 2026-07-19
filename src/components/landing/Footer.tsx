@@ -15,6 +15,7 @@ export function Footer() {
       links: [
         { label: f.features, href: `/${locale}#features` },
         { label: f.pricing, href: `/${locale}#pricing` },
+        { label: t.nav.opportunities, href: `/${locale}/opportunities` },
         { label: f.changelog, href: "#" },
       ],
     },

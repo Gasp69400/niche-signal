@@ -98,12 +98,20 @@ export function ReportsDashboard() {
           </h1>
           <p className="mt-2 max-w-xl text-sm text-muted">{t.dashboard.subtitle}</p>
         </div>
-        <Link
-          href={`/${locale}`}
-          className="btn-glow inline-flex shrink-0 items-center justify-center rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm"
-        >
-          {t.dashboard.newAnalysis}
-        </Link>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <Link
+            href={`/${locale}/opportunities`}
+            className="btn-glow inline-flex shrink-0 items-center justify-center rounded-xl border border-accent-blue/30 bg-accent-blue/10 px-5 py-2.5 text-sm font-semibold text-accent-sky transition hover:bg-accent-blue/20"
+          >
+            {t.monthlyOpportunities.dashboardLink}
+          </Link>
+          <Link
+            href={`/${locale}`}
+            className="btn-glow inline-flex shrink-0 items-center justify-center rounded-xl bg-accent-blue px-5 py-2.5 text-sm font-semibold text-white shadow-glow-sm"
+          >
+            {t.dashboard.newAnalysis}
+          </Link>
+        </div>
       </div>
 
       {canAnalyze && <ReportQuotaCard className="mb-8" />}

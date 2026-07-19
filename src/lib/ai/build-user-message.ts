@@ -1,8 +1,14 @@
+import {
+  MIN_COMPETITORS_PER_REPORT,
+  TARGET_COMPETITORS_PER_REPORT,
+} from "@/lib/reports/competitors-config";
+
 export function buildAnalyzeUserMessage(domain: string): string {
   return `Analyze this EXACT SaaS niche/category: "${domain}"
 
 CRITICAL rules for THIS specific niche:
 - Every score, label, competitor and pain point must be unique to "${domain}" — not generic SaaS advice
+- List ${MIN_COMPETITORS_PER_REPORT} to ${TARGET_COMPETITORS_PER_REPORT} REAL competing SaaS in competitors[] — map the full landscape (leaders, challengers, niche tools, new entrants). This is mandatory.
 - opportunityScore (0-100) must reflect the real attractiveness of "${domain}" specifically
 - competition and buildDifficulty must match this niche — do NOT default to "Modérée" or "Moyenne" unless truly accurate for "${domain}"
 - Use the full spectrum: a saturated niche like email marketing should score differently from a narrow B2B vertical

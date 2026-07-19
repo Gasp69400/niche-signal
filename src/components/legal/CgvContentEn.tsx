@@ -35,7 +35,7 @@ export function CgvContentEn() {
 
       <Section title="3 — Services and pricing">
         <p>
-          Niche Founder offers a single <strong className="text-white">Pro plan (€27.99/month)</strong>{" "}
+          Niche Founder offers a single <strong className="text-white">Pro plan (€9.90/month)</strong>{" "}
           with full access to all features:
         </p>
         <ul className="list-disc space-y-2 pl-5">

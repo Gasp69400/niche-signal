@@ -26,8 +26,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: t.nav.features, href: "#features" },
-    { label: t.nav.pricing, href: "#pricing" },
+    { label: t.nav.features, href: `/${locale}#features` },
+    ...(canAnalyze
+      ? [{ label: t.nav.opportunities, href: `/${locale}/opportunities` }]
+      : []),
+    { label: t.nav.pricing, href: `/${locale}#pricing` },
     { label: t.nav.blog, href: "#" },
   ];
 

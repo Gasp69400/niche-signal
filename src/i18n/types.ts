@@ -9,6 +9,7 @@ export interface Dictionary {
     dashboard: string;
     logout: string;
     quotaShort: string;
+    opportunities: string;
   };
   dashboard: {
     label: string;
@@ -47,6 +48,29 @@ export interface Dictionary {
     exhausted: string;
     exhaustedHint: string;
   };
+  monthlyOpportunities: {
+    label: string;
+    title: string;
+    subtitle: string;
+    publishedOn: string;
+    analyzeCta: string;
+    analyzing: string;
+    analyzeError: string;
+    loadError: string;
+    empty: string;
+    retry: string;
+    backHome: string;
+    disclaimer: string;
+    whyNow: string;
+    topPain: string;
+    dashboardLink: string;
+    metrics: {
+      marketSize: string;
+      competition: string;
+      willingnessToPay: string;
+      painLevel: string;
+    };
+  };
   report: {
     exportPdf: string;
     exportPdfPro: string;
@@ -56,6 +80,21 @@ export interface Dictionary {
     linkCopied: string;
     save: string;
     savePro: string;
+    competitorsSection: {
+      title: string;
+      subtitle: string;
+      searchPlaceholder: string;
+      refreshHint: string;
+      noResults: string;
+      columns: {
+        name: string;
+        arr: string;
+        founded: string;
+        rating: string;
+        price: string;
+        region: string;
+      };
+    };
     signals: {
       willingnessToPay: string;
       marketTrend: string;

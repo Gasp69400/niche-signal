@@ -39,7 +39,7 @@ async function callGeminiModel(
       ],
       generationConfig: {
         temperature: AI_TEMPERATURE,
-        maxOutputTokens: 4096,
+        maxOutputTokens: 8192,
         responseMimeType: "application/json",
       },
     }),
